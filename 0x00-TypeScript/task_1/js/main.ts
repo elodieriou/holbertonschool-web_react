@@ -32,11 +32,11 @@ interface IStudent {
 class StudentClass implements IStudent {
     constructor(private readonly firstName: string, private readonly lastName: string) {}
 
-    workOnHomework() {
+    workOnHomework(): string {
         return 'Currently working';
     }
 
-    displayName() {
+    displayName(): string {
         return this.firstName;
     }
 }
