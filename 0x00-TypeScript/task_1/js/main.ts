@@ -11,12 +11,37 @@ interface Directors extends Teacher {
     numberOfReports: number;
 }
 
-const director1: Directors = {
-    firstName: 'John',
-    lastName: 'Doe',
-    location: 'London',
-    fullTimeEmployee: true,
-    numberOfReports: 17,
-};
+interface printTeacherFunction {
+    (firstName: string, lastName: string): string;
+}
 
-console.log(director1);
+function printTeacher(firstName: string, lastName: string) {
+    return `${firstName.charAt(0)}. ${lastName}`;
+}
+
+interface IStudentClass {
+    firstName: string;
+    lastName: string;
+}
+
+interface IStudent {
+    workOnHomework(): string;
+    displayName(): string;
+}
+
+class StudentClass implements IStudent {
+    constructor(private readonly firstName: string, private readonly lastName: string) {}
+
+    workOnHomework() {
+        return 'Currently working';
+    }
+
+    displayName() {
+        return this.firstName;
+    }
+}
+
+const student: IStudent = new StudentClass('Élodie', 'Riou');
+console.log(student);
+console.log(student.workOnHomework());
+console.log(student.displayName());
