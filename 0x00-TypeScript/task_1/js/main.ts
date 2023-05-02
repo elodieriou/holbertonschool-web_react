@@ -1,6 +1,6 @@
 interface Teacher {
-    firstName: string;
-    lastName: string;
+    readonly firstName: string;
+    readonly lastName: string;
     fullTimeEmployee: boolean;
     yearsOfExperience?: number;
     location: string;
@@ -30,7 +30,7 @@ interface IStudent {
 }
 
 class StudentClass implements IStudent {
-    constructor(private readonly firstName: string, private readonly lastName: string) {}
+    constructor(private firstName: string, private lastName: string) {}
 
     workOnHomework(): string {
         return 'Currently working';
