@@ -1,19 +1,23 @@
-import {appendSuffixesIfMatch} from "ts-loader/dist/utils";
-
 interface MajorCredits {
     credits: number;
-    brand: 'Hello world';
+    __brand: 'Hello world';
 }
 
 interface MinorCredits {
     credits: number;
-    brand: 'Holberton school';
+    __brand: 'Holberton school';
 }
 
-function sumMajorCredits(subject1: number, subject2: number): number {
-    return subject1 + subject2;
+function sumMajorCredits(subject1: MajorCredits, subject2: MajorCredits): MajorCredits {
+    return {
+        credits: subject1.credits + subject2.credits,
+        __brand: 'Hello world',
+    };
 }
 
-function sumMinorCredits(subject1: number, subject2: number): number {
-    return
+function sumMinorCredits(subject1: MinorCredits, subject2: MinorCredits): MinorCredits {
+    return {
+        credits: subject1.credits + subject2.credits,
+        __brand: 'Holberton school',
+    };
 }
