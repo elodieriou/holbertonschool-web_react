@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "start-dev": "webpack serve"
+    "start-dev": "webpack-dev-server --open"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +15,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.7.3",
     "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.1",
     "image-webpack-loader": "^8.1.0",
     "style-loader": "^3.3.2",
     "webpack": "^5.81.0",
