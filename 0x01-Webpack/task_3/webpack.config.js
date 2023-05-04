@@ -32,9 +32,6 @@ module.exports = {
                 use: ["style-loader", "css-loader"],
             },
             {
-                /* test: /\.(png|svg|jpe?g|gif)$/i,
-                type: 'asset/resource',
-                loader: 'image-webpack-loader',*/
                 test: /\.(png|svg|jpe?g|gif)$/i,
                 use: [
                     'file-loader',
