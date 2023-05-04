@@ -9,18 +9,16 @@ function appendToBody() {
     $('body').append('<p>Copyright - Holberton School</p>');
 }
 
-let count = 0;
 function updateCounter() {
-    count++;
-    return count;
+    let count = 0;
+    let debounced = _.debounce(() => {
+        count++;
+        $('#count').text(`${count} clicks on the button`);
+    }, 500);
+    $('button').on('click', debounced);
 }
 
 $(() => {
     appendToBody();
-
-    let debounced = _.debounce(() => {
-        let count = updateCounter();
-        $('#count').text(`${count} clicks on the button`);
-    }, 500);
-    $('button').on('click', debounced);
+    updateCounter();
 });
