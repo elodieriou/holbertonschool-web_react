@@ -5,9 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
     mode: 'development',
     entry: {
-      header: './modules/header/header.js',
-      body: './modules/body/body.js',
-      footer: './modules/footer/footer.js',
+      all: ['./modules/header/header.js', './modules/body/body.js', './modules/footer/footer.js']
     },
     output: {
         filename: "[name].bundle.js",
@@ -33,15 +31,8 @@ module.exports = {
             },
             {
                 test: /\.(png|svg|jpe?g|gif)$/i,
-                use: [
-                    'file-loader',
-                    {
-                        loader: 'image-webpack-loader',
-                        options: {
-                            bypassingOnDebug: true,
-                        },
-                    },
-                ],
+                type: 'asset/resource',
+                loader: 'image-webpack-loader',
             },
         ],
     },
