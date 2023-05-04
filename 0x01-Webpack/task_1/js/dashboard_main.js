@@ -11,11 +11,10 @@ function appendToBody() {
 
 function updateCounter() {
     let count = 0;
-    let debounced = _.debounce(() => {
+    $('button').on('click', _.debounce(() => {
         count++;
         $('#count').text(`${count} clicks on the button`);
-    }, 500);
-    $('button').on('click', debounced);
+    }, 500));
 }
 
 $(() => {
