@@ -1,0 +1,6 @@
+@import 'App.css';
+
+.Notifications {
+    border: 2px dotted var(--holberton-red);
+    padding: 2rem 0;
+}
