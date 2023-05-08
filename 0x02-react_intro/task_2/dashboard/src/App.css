@@ -1,0 +1,53 @@
+:root {
+  --holberton-red: #e1484c;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  border-bottom: 3px solid var(--holberton-red);
+  display: flex;
+}
+
+.App-header img {
+  width: 200px;
+  height: 200px;
+}
+
+.App-header h1 {
+  color: var(--holberton-red);
+  margin: auto auto auto 0;
+}
+
+.App-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.App-body p {
+  margin: 3rem 0 0 2rem;
+}
+
+.App-body .App-form {
+  display: flex;
+  margin: 1rem 0 0 2rem;
+}
+
+.App-body .App-form label,
+.App-body .App-form input {
+  margin: 0 1rem 0 0;
+}
+
+.App-footer {
+  position: absolute;
+  bottom: 0;
+  border-top: 3px solid var(--holberton-red);
+  width: 100%;
+}
+
+.App-footer p {
+  font-style: italic;
+}
