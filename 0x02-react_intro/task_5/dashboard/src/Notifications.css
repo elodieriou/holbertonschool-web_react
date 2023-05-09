@@ -1,0 +1,14 @@
+@import 'App.css';
+
+.Notifications {
+    border: 2px dotted var(--holberton-red);
+    padding: 2rem 0 0 .5rem;
+}
+
+li[data-priority="default"] {
+    color: darkblue;
+}
+
+li[data-priority="urgent"] {
+    color: red;
+}
