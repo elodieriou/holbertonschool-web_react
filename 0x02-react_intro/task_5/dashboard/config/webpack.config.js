@@ -11,6 +11,7 @@ module.exports = {
         static: path.resolve(__dirname, "../dist"),
         port: 8564,
         hot: true,
+        open: true,
     },
     module: {
         rules: [
@@ -19,24 +20,15 @@ module.exports = {
                 use: ['style-loader', 'css-loader']
             },
             {
-                test: /\.(gif|png|jpe?g|svg)$/i,
-                use: [
-                    "file-loader",
-                    {
-                        loader: "image-webpack-loader",
-                        options: {
-                            bypassOnDebug: true,
-                        },
-                    }
-                ]
+                test: /\.(png|svg|jpe?g|gif)$/i,
+                type: 'asset/resource',
+                loader: 'image-webpack-loader',
             },
             {
                 test: /\.(jsx?)$/i,
                 exclude: /nodes_modules/,
-                use: {
-                    loader: "babel-loader"
-                }
-            }
-        ]
+                loader: "babel-loader"
+            },
+        ],
     },
 }
