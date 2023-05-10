@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import logo from './logo.jpg'
+import logo from './holberton-logo.jpg'
 
 function App() {
   return (
