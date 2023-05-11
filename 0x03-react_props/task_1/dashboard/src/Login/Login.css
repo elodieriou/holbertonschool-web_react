@@ -1,0 +1,13 @@
+.login-p {
+    margin: 3rem 0 0 2rem;
+}
+
+.App-form {
+    display: flex;
+    margin: 1rem 0 0 2rem;
+}
+
+.App-form label,
+.App-form input {
+    margin: 0 1rem 0 0;
+}
