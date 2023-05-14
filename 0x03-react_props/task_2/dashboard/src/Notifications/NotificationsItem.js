@@ -1,13 +1,13 @@
 import React from 'react';
 import './Notifications.css';
 
-const NotificationsItem = ({ type, html, value }) => {
+const NotificationsItem = (props) => {
     const liProps = {
-        'data-notification-type': type,
+        'data-notification-type': props.type,
     };
-    if (html) liProps.dangerouslySetInnerHTML = html;
+    if (props.html) liProps.dangerouslySetInnerHTML = props.html;
     return (
-        <li {...liProps}>{value}</li>
+        <li {...liProps}>{props.value}</li>
     );
 }
 
