@@ -5,7 +5,7 @@ import NotificationsItem from './NotificationsItem';
 
 const Notifications = () => {
     return (
-        <div className='Notifications'>
+        <div className={'Notifications'}>
             <button
                 style={{
                     position: "absolute",
@@ -16,16 +16,16 @@ const Notifications = () => {
                     background: "none",
                     cursor: "pointer"
                 }}
-                aria-label="Close"
+                aria-label={"Close"}
                 onClick={ () => {
                     console.log("Close button has been clicked\n");
                 }}
             >x</button>
             <p>Here is the list of notifications</p>
             <ul>
-                <NotificationsItem type="default" value="New course available"/>
-                <NotificationsItem type="urgent" value="New resume available"/>
-                <NotificationsItem type="urgent" html={{__html: getLatestNotification()}}/>
+                <NotificationsItem type={"default"} value={"New course available"}/>
+                <NotificationsItem type={"urgent"} value={"New resume available"}/>
+                <NotificationsItem type={"urgent"} html={{__html: getLatestNotification()}}/>
             </ul>
         </div>
     );

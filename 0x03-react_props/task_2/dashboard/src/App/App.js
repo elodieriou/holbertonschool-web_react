@@ -9,9 +9,9 @@ const App = () => {
   return (
       <React.Fragment>
           <Notifications />
-          <div className="App">
+          <div className={"App"}>
               <Header />
-              <div className="App-body">
+              <div className={"App-body"}>
                   <Login />
               </div>
               <Footer />

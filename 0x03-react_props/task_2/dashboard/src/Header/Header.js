@@ -4,8 +4,8 @@ import logo from '../assets/holberton-logo.jpg';
 
 const Header = () => {
     return (
-        <div className="App-header">
-            <img src={logo} alt="Holberton logo" />
+        <div className={"App-header"}>
+            <img src={logo} alt={"Holberton logo"} />
             <h1>School dashboard</h1>
         </div>
     );
