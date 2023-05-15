@@ -1,0 +1,22 @@
+#CourseList {
+    width: 100%;
+    border: 1px solid lightgrey;
+    border-collapse: collapse;
+    margin-top: 2rem;
+}
+
+th {
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+    padding: .5rem;
+    text-align: left;
+}
+
+th[colspan='2'] {
+    text-align: center;
+}
+
+td {
+    padding: .2rem .5rem;
+    text-align: left;
+}
