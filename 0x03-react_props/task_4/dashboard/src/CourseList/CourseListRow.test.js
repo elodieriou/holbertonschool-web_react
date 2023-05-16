@@ -13,7 +13,7 @@ describe('CourseListRow component tests', () => {
         const wrapper = shallow(<CourseListRow isHeader={true} textFirstCell="School"/>);
         const th = wrapper.find('th');
         expect(th).toHaveLength(1);
-        expect(th.prop('colSpan')).toEqual("2");
+        expect(th.prop('colSpan')).toEqual(2);
     });
 
     it('renders when header is true and textSecondCell is not null', () => {
