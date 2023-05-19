@@ -7,6 +7,8 @@ import Login from '../Login/Login';
 import CourseList from '../CourseList/CourseList';
 import Footer from '../Footer/Footer';
 import {getLatestNotification} from '../utils/utils';
+import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
+import BodySection from "../BodySection/BodySection";
 
 class App extends React.Component {
     constructor(props) {
@@ -48,13 +50,27 @@ class App extends React.Component {
                 <div className={"App"}>
                     <Header />
                     <div className={"App-body"}>
-                        {isLoggedIn ? <CourseList listCourses={listCourses}/> : <Login/>}
+                        {
+                            isLoggedIn === true &&
+                            <BodySectionWithMarginBottom title={"Course list"}>
+                                <CourseList listCourses={listCourses}/>
+                            </BodySectionWithMarginBottom>
+                        }
+                        {
+                            isLoggedIn === false &&
+                            <BodySectionWithMarginBottom title={"Log in to continue"}>
+                                <Login/>
+                            </BodySectionWithMarginBottom>
+                        }
+                        <BodySection title={"News from the School"}>
+                            <p>Hello World!</p>
+                        </BodySection>
                     </div>
                     <Footer />
                 </div>
             </React.Fragment>
         );
-    }
+    };
 }
 
 App.propTypes = {
