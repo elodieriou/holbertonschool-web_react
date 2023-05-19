@@ -1,0 +1,14 @@
+:root {
+  --holberton-red: #e1484c;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-top: 3px solid var(--holberton-red);
+}
