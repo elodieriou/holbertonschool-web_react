@@ -42,6 +42,16 @@ describe('Notifications component tests', () => {
             expect(listItems).toHaveLength(3);
             expect(listItems.first().html()).toEqual('<li data-notification-type="default">New course available</li>');
         });
+
+        it('displays a message to the console when markAsRead function is called', () => {
+            console.log = jest.fn();
+            const id = 1;
+            wrapper.instance().markAsRead(id);
+
+            expect(console.log).toHaveBeenCalledWith(`Notification ${id} has been marked as read`);
+
+            jest.restoreAllMocks();
+        });
     });
 
     describe('When displayDrawer is true and listNotifications empty', () => {

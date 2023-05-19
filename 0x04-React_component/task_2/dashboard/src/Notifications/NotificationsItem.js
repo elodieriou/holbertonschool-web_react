@@ -16,7 +16,7 @@ class NotificationsItem extends React.Component {
 }
 
 NotificationsItem.propTypes = {
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     html: PropTypes.shape({
         __html: PropTypes.string,
     }),

@@ -23,4 +23,24 @@ describe('NotificationsItem component tests', () => {
         expect(liItem).toHaveLength(1);
         expect(liItem.html()).toEqual('<li data-notification-type="default"><u>test</u></li>');
     });
+
+    it('checks when clicking on an item, the markAsRead function is called with the right id', () => {
+        const markAsReadMock = jest.fn();
+        const id = 1;
+        const props = {
+            type: "urgent",
+            value: "test",
+            markAsRead: markAsReadMock
+        };
+        const wrapper = shallow(<NotificationsItem {...props} />);
+        const markAsRead = wrapper.instance().markAsRead = jest.fn();
+        markAsRead(id);
+
+        wrapper.simulate('click');
+
+        expect(markAsReadMock).toHaveBeenCalled();
+        expect(markAsRead).toHaveBeenCalledWith(id);
+
+        jest.restoreAllMocks();
+    });
 });
