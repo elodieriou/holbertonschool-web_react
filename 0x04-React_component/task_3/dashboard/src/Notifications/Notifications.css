@@ -1,0 +1,19 @@
+@import '../App/App.css';
+
+.Notifications {
+    border: 2px dotted var(--holberton-red);
+    padding: 1rem .5rem 0 .5rem;
+    float: right;
+}
+
+li[data-notification-type="default"] {
+    color: darkblue;
+}
+
+li[data-notification-type="urgent"] {
+    color: red;
+}
+
+.menuItem {
+    text-align: right;
+}
