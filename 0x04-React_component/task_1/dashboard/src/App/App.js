@@ -21,6 +21,7 @@ class App extends React.Component {
             {id: 2, type: "urgent", value: "New resume available"},
             {id: 3, type: "urgent", html: {__html: getLatestNotification()}},
         ];
+        this.isLoggedIn = props.isLoggedIn;
         this.logOut = props.logOut;
         this.handleKeyDown = this.handleKeyDown.bind(this);
     }
@@ -46,7 +47,7 @@ class App extends React.Component {
                 <div className={"App"}>
                     <Header />
                     <div className={"App-body"}>
-                        {this.props.isLoggedIn ? <CourseList listCourses={this.listCourses}/> : <Login/>}
+                        {this.isLoggedIn ? <CourseList listCourses={this.listCourses}/> : <Login/>}
                     </div>
                     <Footer />
                 </div>
