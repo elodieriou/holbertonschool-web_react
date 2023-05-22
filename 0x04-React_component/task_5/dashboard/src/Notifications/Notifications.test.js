@@ -98,4 +98,40 @@ describe('Notifications component tests', () => {
             expect(div.hasClass('menuItem')).toBe(true);
         });
     });
+
+    describe('When props are updating', () => {
+        it('doesnt rerender if there is the same listNotificationItem', () => {
+            const listNotifications = [
+                {id: 1, type: "default", value: "New course available"},
+                {id: 2, type: "urgent", value: "New resume available"},
+                {id: 3, type: "urgent", html: {__html: getLatestNotification()}},
+            ];
+            const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications}/>);
+            const shouldUpdate = jest.spyOn(wrapper.instance(), 'shouldComponentUpdate');
+            wrapper.setProps({ listNotifications: listNotifications });
+
+            expect(shouldUpdate).toHaveBeenCalled();
+            expect(shouldUpdate).toHaveLastReturnedWith(false);
+            jest.restoreAllMocks();
+        });
+
+        it('does rerender if there is not the same listNotificationItem', () => {
+            const listNotifications1 = [
+                {id: 1, type: "default", value: "New course available"},
+                {id: 2, type: "urgent", value: "New resume available"},
+            ];
+            const listNotifications2 = [
+                {id: 1, type: "default", value: "New course available"},
+                {id: 2, type: "urgent", value: "New resume available"},
+                {id: 3, type: "urgent", html: {__html: getLatestNotification()}},
+            ];
+            const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications1}/>);
+            const shouldUpdate = jest.spyOn(wrapper.instance(), 'shouldComponentUpdate');
+            wrapper.setProps({ listNotifications: listNotifications2 });
+
+            expect(shouldUpdate).toHaveBeenCalled();
+            expect(shouldUpdate).toHaveLastReturnedWith(true);
+            jest.restoreAllMocks();
+        });
+    });
 });
