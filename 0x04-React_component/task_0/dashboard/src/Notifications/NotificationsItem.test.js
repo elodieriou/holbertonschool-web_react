@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import NotificationsItem from './NotificationsItem';
 
-describe.skip('NotificationsItem component tests', () => {
+describe('NotificationsItem component tests', () => {
 
     it('renders NotificationsItem component without crashing', () => {
         const wrapper = shallow(<NotificationsItem />);

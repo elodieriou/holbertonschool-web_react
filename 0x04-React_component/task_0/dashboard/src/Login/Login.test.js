@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Login from './Login';
 
-describe.skip('Header component tests', () => {
+describe('Header component tests', () => {
 
     let wrapper;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import CourseListRow from './CourseListRow';
 
-describe.skip('CourseListRow component tests', () => {
+describe('CourseListRow component tests', () => {
 
     it('renders CourseListRow component without crashing', () => {
         const wrapper = shallow(<CourseListRow textFirstCell="School" />);

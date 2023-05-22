@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Footer from './Footer';
 
-describe.skip('Footer component tests', () => {
+describe('Footer component tests', () => {
 
     let wrapper;
 

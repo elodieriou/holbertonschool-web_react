@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import Notifications from './Notifications';
 import {getLatestNotification} from '../utils/utils';
 
-describe.skip('Notifications component tests', () => {
+describe('Notifications component tests', () => {
 
     describe('When displayDrawer is true and listNotifications not empty', () => {
         let wrapper;
