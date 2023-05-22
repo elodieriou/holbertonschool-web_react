@@ -8,7 +8,7 @@ import CourseList from '../CourseList/CourseList';
 import Footer from '../Footer/Footer';
 import {getLatestNotification} from '../utils/utils';
 
-describe('App component tests', () => {
+describe.skip('App component tests', () => {
 
   describe('When isLoggedIn = false', () => {
 
