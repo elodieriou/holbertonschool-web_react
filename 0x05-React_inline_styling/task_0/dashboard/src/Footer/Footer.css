@@ -1,0 +1,12 @@
+@import '../App/App.css';
+
+.App-footer {
+    position: absolute;
+    bottom: 0;
+    border-top: 3px solid var(--holberton-red);
+    width: 100%;
+}
+
+.App-footer p {
+    font-style: italic;
+}
