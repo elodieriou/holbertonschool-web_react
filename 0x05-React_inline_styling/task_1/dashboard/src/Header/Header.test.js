@@ -9,6 +9,7 @@ describe('Header component tests', () => {
     let wrapper;
 
     beforeEach(() => {
+        StyleSheetTestUtils.suppressStyleInjection();
         wrapper = shallow(<Header />);
     });
 

@@ -1,12 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Login from './Login';
+import {StyleSheetTestUtils} from "aphrodite";
 
 describe('Header component tests', () => {
 
     let wrapper;
 
     beforeEach(() => {
+        StyleSheetTestUtils.suppressStyleInjection();
         wrapper = shallow(<Login />);
     });
 

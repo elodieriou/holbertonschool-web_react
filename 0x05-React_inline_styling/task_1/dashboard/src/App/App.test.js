@@ -7,6 +7,7 @@ import Login from '../Login/Login';
 import CourseList from '../CourseList/CourseList';
 import Footer from '../Footer/Footer';
 import {getLatestNotification} from '../utils/utils';
+import { StyleSheetTestUtils } from "aphrodite";
 
 describe('App component tests', () => {
 
@@ -15,7 +16,9 @@ describe('App component tests', () => {
     let wrapper;
 
     beforeEach(() => {
+      StyleSheetTestUtils.suppressStyleInjection();
       wrapper = shallow(<App />);
+
     });
 
     it('renders App without crashing', () => {

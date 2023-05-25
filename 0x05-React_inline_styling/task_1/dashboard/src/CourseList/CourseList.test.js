@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import CourseList from './CourseList';
+import {StyleSheetTestUtils} from "aphrodite";
 
 describe('CourseList component tests', () => {
 
@@ -8,6 +9,7 @@ describe('CourseList component tests', () => {
         let wrapper;
 
         beforeEach(() => {
+            StyleSheetTestUtils.suppressStyleInjection();
             const listCourses = [
                 {id: 1, name: "ES6", credit: 60},
                 {id: 2, name: "Webpack", credit: 20},

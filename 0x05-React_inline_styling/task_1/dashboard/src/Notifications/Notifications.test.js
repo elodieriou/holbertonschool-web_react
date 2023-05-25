@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Notifications from './Notifications';
 import {getLatestNotification} from '../utils/utils';
+import {StyleSheetTestUtils} from "aphrodite";
 
 describe('Notifications component tests', () => {
 
@@ -9,6 +10,7 @@ describe('Notifications component tests', () => {
         let wrapper;
 
         beforeEach(() => {
+            StyleSheetTestUtils.suppressStyleInjection();
             const listNotifications = [
                 {id: 1, type: "default", value: "New course available"},
                 {id: 2, type: "urgent", value: "New resume available"},
@@ -58,6 +60,7 @@ describe('Notifications component tests', () => {
         let wrapper;
 
         beforeEach(() => {
+            StyleSheetTestUtils.suppressStyleInjection();
             wrapper = shallow(<Notifications displayDrawer={true} listNotifications={[]}/>);
         });
 
@@ -80,6 +83,7 @@ describe('Notifications component tests', () => {
         let wrapper;
 
         beforeEach(() => {
+            StyleSheetTestUtils.suppressStyleInjection();
             wrapper = shallow(<Notifications />);
         });
 

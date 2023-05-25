@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import BodySectionWithMarginBottom from './BodySectionWithMarginBottom';
 import BodySection from "./BodySection";
 import {expectedError} from "@babel/core/lib/errors/rewrite-stack-trace";
+import {StyleSheetTestUtils} from "aphrodite";
 
 describe('BodySectionWithMarginBottom component tests', () => {
 
@@ -13,6 +14,7 @@ describe('BodySectionWithMarginBottom component tests', () => {
     }
 
     beforeEach(() => {
+        StyleSheetTestUtils.suppressStyleInjection();
         wrapper = shallow(<BodySection { ...props }/>);
     });
 
