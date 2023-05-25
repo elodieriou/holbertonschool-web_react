@@ -96,6 +96,8 @@ const styles = StyleSheet.create({
         bottom: 0,
         borderTop: '3px solid #e1484c',
         width: '100%',
+        textAlign: 'center',
+        fontStyle: 'italic',
     },
 });
 
