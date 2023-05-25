@@ -38,7 +38,7 @@ describe('Notifications component tests', () => {
 
         it('renders NotificationItem component', () => {
             const list = wrapper.find('ul');
-            const listItems = list.find('NotificationsItem');
+            const listItems = list.find('NotificationItem');
             expect(listItems).toHaveLength(3);
         });
 
@@ -66,7 +66,7 @@ describe('Notifications component tests', () => {
         });
 
         it('renders empty notifications', () => {
-            const listItem = wrapper.find('NotificationsItem');
+            const listItem = wrapper.find('NotificationItem');
             expect(listItem).toHaveLength(0);
         });
 

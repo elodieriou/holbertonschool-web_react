@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, css } from "aphrodite";
-
+import './Notifications.css';
 
 class NotificationItem extends React.PureComponent {
     render() {
         const { type, html, value, markAsRead, id } = this.props;
-        const styleItem = type === 'default' ? styles.defaultNotification : styles.urgentNotification;
         const liProps = {
-            className: css(styleItem),
             'data-notification-type': type,
         };
         if (html) liProps.dangerouslySetInnerHTML = html;
@@ -32,14 +29,5 @@ NotificationItem.defaultProps = {
     type: 'default',
     markAsRead: () => {},
 };
-
-const styles = StyleSheet.create({
-    defaultNotification: {
-        color: 'darkblue',
-    },
-    urgentNotification: {
-        color: 'red',
-    },
-});
 
 export default NotificationItem;

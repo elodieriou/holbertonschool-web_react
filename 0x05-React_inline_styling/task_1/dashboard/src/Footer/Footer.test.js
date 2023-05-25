@@ -15,7 +15,7 @@ describe('Footer component tests', () => {
     });
 
     it('renders a div with the class App-footer', () => {
-        const appFooter = wrapper.find('[className^="footer"]');
+        const appFooter = wrapper.find('.App-footer');
         expect(appFooter).toHaveLength(1);
     });
 
