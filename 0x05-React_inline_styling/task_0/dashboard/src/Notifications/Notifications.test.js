@@ -36,9 +36,9 @@ describe('Notifications component tests', () => {
             expect(textElement.at(1).text()).toBe('Here is the list of notifications');
         });
 
-        it('renders NotificationsItem component', () => {
+        it('renders NotificationItem component', () => {
             const list = wrapper.find('ul');
-            const listItems = list.find('NotificationsItem');
+            const listItems = list.find('NotificationItem');
             expect(listItems).toHaveLength(3);
             expect(listItems.first().html()).toEqual('<li data-notification-type="default">New course available</li>');
         });
@@ -67,7 +67,7 @@ describe('Notifications component tests', () => {
         });
 
         it('renders empty notifications', () => {
-            const listItem = wrapper.find('NotificationsItem');
+            const listItem = wrapper.find('NotificationItem');
             expect(listItem).toHaveLength(0);
         });
 
