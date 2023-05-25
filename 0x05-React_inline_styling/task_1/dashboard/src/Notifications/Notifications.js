@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import NotificationsItem from './NotificationsItem';
+import NotificationItem from './NotificationItem';
 import NotificationItemShape from './NotificationItemShape';
 
 
@@ -46,7 +46,7 @@ class Notifications extends React.Component {
                         {listNotifications.length === 0 ? <p>No new notification for now</p> : <p>Here is the list of notifications</p>}
                         <ul>
                             {listNotifications.map((notification) => (
-                                <NotificationsItem
+                                <NotificationItem
                                     id={notification.id}
                                     key={notification.id}
                                     type={notification.type}

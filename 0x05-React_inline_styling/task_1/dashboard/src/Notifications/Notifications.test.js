@@ -36,7 +36,7 @@ describe('Notifications component tests', () => {
             expect(textElement.at(1).text()).toBe('Here is the list of notifications');
         });
 
-        it('renders NotificationsItem component', () => {
+        it('renders NotificationItem component', () => {
             const list = wrapper.find('ul');
             const listItems = list.find('NotificationsItem');
             expect(listItems).toHaveLength(3);

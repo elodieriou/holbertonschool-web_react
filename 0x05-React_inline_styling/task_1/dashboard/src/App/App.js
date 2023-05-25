@@ -66,7 +66,9 @@ class App extends React.Component {
                         <p>Hello World!</p>
                     </BodySection>
                 </div>
-                <Footer />
+                <div className={css(styles.footer)}>
+                    <Footer />
+                </div>
             </React.Fragment>
         );
     };
@@ -88,6 +90,14 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'flex-start',
         borderTop: '3px solid #e1484c',
+    },
+    footer: {
+        position: 'absolute',
+        bottom: 0,
+        borderTop: '3px solid #e1484c',
+        width: '100%',
+        textAlign: 'center',
+        fontStyle: 'italic',
     },
 });
 

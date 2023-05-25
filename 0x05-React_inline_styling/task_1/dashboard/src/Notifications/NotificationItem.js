@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet, css } from "aphrodite";
 
 
-class NotificationsItem extends React.PureComponent {
+class NotificationItem extends React.PureComponent {
     render() {
         const { type, html, value, markAsRead, id } = this.props;
         const styleItem = type === 'default' ? styles.defaultNotification : styles.urgentNotification;
@@ -18,7 +18,7 @@ class NotificationsItem extends React.PureComponent {
     }
 }
 
-NotificationsItem.propTypes = {
+NotificationItem.propTypes = {
     id: PropTypes.number,
     html: PropTypes.shape({
         __html: PropTypes.string,
@@ -28,7 +28,7 @@ NotificationsItem.propTypes = {
     markAsRead: PropTypes.func,
 };
 
-NotificationsItem.defaultProps = {
+NotificationItem.defaultProps = {
     type: 'default',
     markAsRead: () => {},
 };
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default NotificationsItem;
+export default NotificationItem;
