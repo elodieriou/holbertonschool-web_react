@@ -45,6 +45,7 @@ class App extends React.Component {
     }
     render() {
         const isLoggedIn = this.props.isLoggedIn;
+        const { displayDrawer } = this.state;
 
         const listCourses = [
             {id: 1, name: "ES6", credit: 60},
@@ -60,7 +61,7 @@ class App extends React.Component {
         return (
             <React.Fragment>
                 <Notifications listNotifications={listNotifications}
-                               displayDrawer={this.state.displayDrawer}
+                               displayDrawer={displayDrawer}
                                handleDisplayDrawer={this.handleDisplayDrawer}
                                handleHideDrawer={this.handleHideDrawer} />
                 <Header />
