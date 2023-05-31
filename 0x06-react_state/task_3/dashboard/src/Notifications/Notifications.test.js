@@ -41,16 +41,6 @@ describe('Notifications component tests', () => {
             const listItems = list.find('NotificationsItem');
             expect(listItems).toHaveLength(3);
         });
-
-        it.skip('displays a message to the console when markAsRead function is called', () => {
-            console.log = jest.fn();
-            const id = 1;
-            wrapper.instance().markAsRead(id);
-
-            expect(console.log).toHaveBeenCalledWith(`Notification ${id} has been marked as read`);
-
-            jest.restoreAllMocks();
-        });
     });
 
     describe('When displayDrawer is true and listNotifications empty', () => {
@@ -99,22 +89,21 @@ describe('Notifications component tests', () => {
     });
 
     describe('When props are updating', () => {
-        it.skip('doesnt rerender if there is the same listNotificationItem', () => {
+        it('doesnt rerender if there is the same listNotificationItem', () => {
             const listNotifications = [
                 {id: 1, type: "default", value: "New course available"},
                 {id: 2, type: "urgent", value: "New resume available"},
                 {id: 3, type: "urgent", html: {__html: getLatestNotification()}},
             ];
+            const render = jest.spyOn(Notifications.prototype, 'render');
             const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications}/>);
-            const shouldUpdate = jest.spyOn(wrapper.instance(), 'shouldComponentUpdate');
             wrapper.setProps({ listNotifications: listNotifications });
 
-            expect(shouldUpdate).toHaveBeenCalled();
-            expect(shouldUpdate).toHaveLastReturnedWith(false);
+            expect(render).toHaveBeenCalledTimes(1);
             jest.restoreAllMocks();
         });
 
-        it.skip('does rerender if there is not the same listNotificationItem', () => {
+        it('does rerender if there is not the same listNotificationItem', () => {
             const listNotifications1 = [
                 {id: 1, type: "default", value: "New course available"},
                 {id: 2, type: "urgent", value: "New resume available"},
@@ -124,12 +113,12 @@ describe('Notifications component tests', () => {
                 {id: 2, type: "urgent", value: "New resume available"},
                 {id: 3, type: "urgent", html: {__html: getLatestNotification()}},
             ];
+
+            const render = jest.spyOn(Notifications.prototype, 'render');
             const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications1}/>);
-            const shouldUpdate = jest.spyOn(wrapper.instance(), 'shouldComponentUpdate');
             wrapper.setProps({ listNotifications: listNotifications2 });
 
-            expect(shouldUpdate).toHaveBeenCalled();
-            expect(shouldUpdate).toHaveLastReturnedWith(true);
+            expect(render).toHaveBeenCalledTimes(2);
             jest.restoreAllMocks();
         });
     });
