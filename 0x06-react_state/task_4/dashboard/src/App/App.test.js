@@ -1,9 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import App from './App';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
-import Login from '../Login/Login';
 import CourseList from '../CourseList/CourseList';
 import Footer from '../Footer/Footer';
 import {getLatestNotification} from '../utils/utils';
@@ -51,7 +50,13 @@ describe('App component tests', () => {
     it('renders not contain the CourseList component', () => {
       expect(wrapper.contains(<CourseList />)).toBe(false);
     });
-  })
+
+    it('the logIn function updates the state of user', () => {
+      const wrapper = shallow(<App />);
+      wrapper.instance().logOut();
+      expect(wrapper.state().user.isLoggedIn).toBe(false);
+    });
+  });
 
   describe('When isLoggedIn = true', () => {
 
@@ -68,13 +73,19 @@ describe('App component tests', () => {
 
     it('calls logOut function when keys Control and H are pressed', () => {
       const logOutMock = jest.fn();
-      shallow(<App logOut={logOutMock} />);
+      const wrapper = mount(<App logOut={logOutMock} />);
 
       const alert = jest.spyOn(global, 'alert');
       expect(alert);
       expect(logOutMock);
 
       jest.restoreAllMocks();
+    });
+
+    it('the logIn function updates the state of user', () => {
+      const wrapper = shallow(<App />);
+      wrapper.instance().logIn();
+      expect(wrapper.state().user.isLoggedIn).toBe(true);
     });
   });
 
@@ -122,6 +133,21 @@ describe('App component tests', () => {
       wrapper.instance().handleDisplayDrawer();
       wrapper.instance().handleHideDrawer();
       expect(wrapper.state('displayDrawer')).toBe(false);
+    });
+  });
+
+  describe('Check markNotificationAsRead', () => {
+
+    it('when remove notification read', () => {
+      const wrapper = shallow(<App />);
+      wrapper.setState({
+        user: {
+          email: '3685@holbertonschool.com',
+          password: 'azerty',
+        }});
+      expect(wrapper.state().listNotifications.length).toEqual(3);
+      wrapper.instance().markNotificationAsRead(1);
+      expect(wrapper.state().listNotifications.length).toEqual(2);
     });
   });
 });
