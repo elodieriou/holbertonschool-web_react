@@ -36,9 +36,11 @@ NotificationsItem.defaultProps = {
 const styles = StyleSheet.create({
     defaultNotification: {
         color: 'darkblue',
+        cursor: 'pointer',
     },
     urgentNotification: {
         color: 'red',
+        cursor: 'pointer',
     },
     itemsMobile: {
         '@media (max-width: 900px)': {
