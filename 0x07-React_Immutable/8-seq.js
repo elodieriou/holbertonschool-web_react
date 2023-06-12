@@ -1,4 +1,4 @@
-import { Seq, Map } from 'immutable';
+import { Seq } from 'immutable';
 
 const printBestStudents = (object) => {
     const sequence = Seq(object);
