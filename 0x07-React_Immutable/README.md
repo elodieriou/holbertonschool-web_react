@@ -337,4 +337,4 @@ Requirements:
 
 Uses seq from immutable.js
 
-Copyright © 2023 Holberton Inc, All rights reserved.
+**Copyright © 2023 Holberton Inc, All rights reserved.**
