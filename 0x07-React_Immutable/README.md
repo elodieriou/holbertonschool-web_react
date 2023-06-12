@@ -105,6 +105,10 @@ __altered: false
 }
 ```
 
+To check `eslint` using the command `npm run check-lint`, you must :
+- modify the command `"check-lint": "lint [0-9]*.js",` by `"check-lint": "eslint [0-9]*.js"`,
+- run the command `npx eslint --init`, that will guide you through a series of prompts to set up an ESLint configuration file. Choose the desired options.
+
 #### 1. Converting into Immutable using Map
 
 In 1-map.js, modify the function getImmutableObject using Map from Immutable.js
