@@ -10,28 +10,84 @@ How to use Merge, Concat, and Deep Merging
 What a lazy Seq is
 ```
 
+## Provided files
+
+`babel.config.js`
+```js
+module.exports = {
+  presets: [
+    [
+      '@babel/preset-env',
+      {
+        targets: {
+          node: 'current',
+        },
+      },
+    ],
+  ],
+};
+```
+
+`jsconfig.json`
+```json
+{
+  "compilerOptions": {
+    "target": "es6"
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
+```
+
+`package.json`
+```json
+{
+  "type": "module",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint",
+    "check-lint": "lint [0-9]*.js",
+    "test": "jest",
+    "full-test": "./node_modules/.bin/eslint [0-9]*.js && jest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.17.0",
+    "jest": "^24.9.0"
+  },
+  "dependencies": {
+    "immutable": "^4.0.0-rc.12"
+  }
+}
+```
+
 ## Tasks
-0. Converting into an Immutable object using fromJS
-   mandatory
-   Copy the necessary config files specified in the description to the root directory of the project and execute npm install.
+#### 0. Converting into an Immutable object using fromJS
+
+Copy the necessary config files specified in the description to the root directory of the project and execute npm install.
    
 Add `"@babel/node": "^7.13.10",` in your `package.json`. It is necessary to transpile the code using Babel.
 
-Optional : add the command `"build": "npx babel-node`.
+Optional : add the command `"build": "npx babel-node"`.
 
 In a file named 0-fromjs.js, create a function getImmutableObject that accepts object as a parameter and converts it into an immutable Map using fromJS of the Immutable.js library
 
 Example:
-
+```js
 {
 fear: true,
 smell: -1033575916.9145899,
 wall: false,
 thing: -914767132
 }
+```
 
 Should return using the commande `npm run build 0-main.js` (if you add the optional command above) or `npx babel-node 0-main.js`.
-
+```js
 Map {
 size: 4,
 _root: ArrayMapNode {
@@ -42,15 +98,11 @@ __ownerID: undefined,
 __hash: undefined,
 __altered: false
 }
-Repo:
+```
 
-GitHub repository: holbertonschool-web_react
-Directory: 0x07-React_Immutable
-File: 0-fromjs.js
+#### 1. Converting into Immutable using Map
 
-1. Converting into Immutable using Map
-   mandatory
-   In 1-map.js, modify the function getImmutableObject using Map from Immutable.js
+In 1-map.js, modify the function getImmutableObject using Map from Immutable.js
 
 Example:
 
