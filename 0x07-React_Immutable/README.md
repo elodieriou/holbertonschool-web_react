@@ -10,6 +10,11 @@ How to use Merge, Concat, and Deep Merging
 What a lazy Seq is
 ```
 
+## Ressources
+[immutable.js - Github](https://github.com/immutable-js/immutable-js)
+
+[immutable.js - Docs](https://immutable-js.com/docs/v4.3.0)
+
 ## Provided files
 
 `babel.config.js`
