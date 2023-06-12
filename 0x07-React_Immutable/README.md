@@ -14,6 +14,10 @@ What a lazy Seq is
 0. Converting into an Immutable object using fromJS
    mandatory
    Copy the necessary config files specified in the description to the root directory of the project and execute npm install.
+   
+Add `"@babel/node": "^7.13.10",` in your `package.json`. It is necessary to transpile the code using Babel.
+
+Optional : add the command `"build": "npx babel-node`.
 
 In a file named 0-fromjs.js, create a function getImmutableObject that accepts object as a parameter and converts it into an immutable Map using fromJS of the Immutable.js library
 
@@ -25,7 +29,8 @@ smell: -1033575916.9145899,
 wall: false,
 thing: -914767132
 }
-Should return:
+
+Should return using the commande `npm run build 0-main.js` (if you add the optional command above) or `npx babel-node 0-main.js`.
 
 Map {
 size: 4,
