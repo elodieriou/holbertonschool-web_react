@@ -158,3 +158,5 @@ Let’s create an animation that we can display when the user hovers on the Noti
 - Show the pointer cursor when hovering the element
 - On hover, animate the element with the two new animations. The duration for the opacity change should be 1s, and the duration for the bouncing effect should be 0.5s. The animation should repeat 3 times only
 - When the list of notifications is visible, hide the menu item
+
+**Copyright © 2023 Holberton Inc, All rights reserved.**

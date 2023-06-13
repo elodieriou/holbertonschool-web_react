@@ -91,7 +91,7 @@ thing: -914767132
 }
 ```
 
-Should return using the commande `npm run build 0-main.js` (if you add the optional command above) or `npx babel-node 0-main.js`.
+Should return using the commande `npm run build main/0-main.js` (if you add the optional command above) or `npx babel-node 0-main.js`.
 ```js
 Map {
 size: 4,

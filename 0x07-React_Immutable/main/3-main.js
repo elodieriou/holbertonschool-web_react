@@ -1,4 +1,4 @@
-import { getListObject, addElementToList } from './3-list';
+import { getListObject, addElementToList } from '../3-list';
 
 const array = ['holberton', 'school', 'hello'];
 const element = 'world';

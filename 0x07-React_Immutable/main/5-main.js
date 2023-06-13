@@ -1,4 +1,4 @@
-import { concatElements, mergeElements } from './5-merge';
+import { concatElements, mergeElements } from '../5-merge';
 
 const page1 = [1, 2, 3];
 const page2 = [4, 5, 6];
