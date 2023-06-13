@@ -1,19 +1,17 @@
 import { Seq } from 'immutable';
 
+const _toUpperCase = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+
 const printBestStudents = (object) => {
-  const sequence = Seq(object);
-  const getStudents = sequence.filter((student) => student.score > 70);
-  const students = getStudents.toJS();
+  const sequence = Seq(object)
+    .filter((student) => student.score > 70)
+    .map((student) => ({
+      ...student,
+      firstName: _toUpperCase(student.firstName),
+      lastName: _toUpperCase(student.lastName),
+    }));
 
-  const _toUpperCase = (string) => string.charAt(0).toUpperCase() + string.slice(1);
-
-  Object.keys(students).map((student) => {
-    students[student].firstName = _toUpperCase(students[student].firstName);
-    students[student].lastName = _toUpperCase(students[student].lastName);
-    return students[student];
-  });
-
-  console.log(students);
+  console.log(sequence.toJS());
 };
 
 export default printBestStudents;
