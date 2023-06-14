@@ -41,16 +41,6 @@ describe('Notifications component tests', () => {
             const listItems = list.find('NotificationsItem');
             expect(listItems).toHaveLength(3);
         });
-
-        it('displays a message to the console when markAsRead function is called', () => {
-            console.log = jest.fn();
-            const id = 1;
-            wrapper.instance().markAsRead(id);
-
-            expect(console.log).toHaveBeenCalledWith(`Notification ${id} has been marked as read`);
-
-            jest.restoreAllMocks();
-        });
     });
 
     describe('When displayDrawer is true and listNotifications empty', () => {
@@ -62,7 +52,7 @@ describe('Notifications component tests', () => {
         });
 
         it('renders Notifications component without crashing', () => {
-           expect(wrapper.exists()).toBe(true);
+            expect(wrapper.exists()).toBe(true);
         });
 
         it('renders empty notifications', () => {
@@ -105,12 +95,11 @@ describe('Notifications component tests', () => {
                 {id: 2, type: "urgent", value: "New resume available"},
                 {id: 3, type: "urgent", html: {__html: getLatestNotification()}},
             ];
+            const render = jest.spyOn(Notifications.prototype, 'render');
             const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications}/>);
-            const shouldUpdate = jest.spyOn(wrapper.instance(), 'shouldComponentUpdate');
             wrapper.setProps({ listNotifications: listNotifications });
 
-            expect(shouldUpdate).toHaveBeenCalled();
-            expect(shouldUpdate).toHaveLastReturnedWith(false);
+            expect(render).toHaveBeenCalledTimes(1);
             jest.restoreAllMocks();
         });
 
@@ -124,12 +113,12 @@ describe('Notifications component tests', () => {
                 {id: 2, type: "urgent", value: "New resume available"},
                 {id: 3, type: "urgent", html: {__html: getLatestNotification()}},
             ];
+
+            const render = jest.spyOn(Notifications.prototype, 'render');
             const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications1}/>);
-            const shouldUpdate = jest.spyOn(wrapper.instance(), 'shouldComponentUpdate');
             wrapper.setProps({ listNotifications: listNotifications2 });
 
-            expect(shouldUpdate).toHaveBeenCalled();
-            expect(shouldUpdate).toHaveLastReturnedWith(true);
+            expect(render).toHaveBeenCalledTimes(2);
             jest.restoreAllMocks();
         });
     });

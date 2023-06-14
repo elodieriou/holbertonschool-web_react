@@ -1,9 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import App from './App';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
-import Login from '../Login/Login';
 import CourseList from '../CourseList/CourseList';
 import Footer from '../Footer/Footer';
 import {getLatestNotification} from '../utils/utils';
@@ -41,7 +40,7 @@ describe('App component tests', () => {
     });
 
     it('renders contain the Login component', () => {
-      expect(wrapper.contains(<Login />)).toBe(true);
+      expect(wrapper.find('Login')).toHaveLength(1);
     });
 
     it('renders contain the Footer component', () => {
@@ -51,30 +50,42 @@ describe('App component tests', () => {
     it('renders not contain the CourseList component', () => {
       expect(wrapper.contains(<CourseList />)).toBe(false);
     });
-  })
+
+    it('the logIn function updates the state of user', () => {
+      const wrapper = shallow(<App />);
+      wrapper.instance().logOut();
+      expect(wrapper.state().user.isLoggedIn).toBe(false);
+    });
+  });
 
   describe('When isLoggedIn = true', () => {
 
     it('renders the component CourseList whereas Login', () => {
-      const listCourses = [
-        {id: 1, name: "ES6", credit: 60},
-        {id: 2, name: "Webpack", credit: 20},
-        {id: 3, name: "React", credit: 40},
-      ]
-      const wrapper = shallow(<App isLoggedIn={true}/>);
-      expect(wrapper.contains(<CourseList listCourses={listCourses}/>)).toBe(true);
-      expect(wrapper.contains(<Login />)).toBe(false);
+      const wrapper = shallow(<App />);
+      wrapper.setState({
+        user: {
+          isLoggedIn: true,
+        },
+      });
+      expect(wrapper.find("CourseList")).toHaveLength(1);
+      expect(wrapper.find("Login")).toHaveLength(0);
     });
 
     it('calls logOut function when keys Control and H are pressed', () => {
       const logOutMock = jest.fn();
-      shallow(<App logOut={logOutMock} />);
+      const wrapper = mount(<App logOut={logOutMock} />);
 
       const alert = jest.spyOn(global, 'alert');
       expect(alert);
       expect(logOutMock);
 
       jest.restoreAllMocks();
+    });
+
+    it('the logIn function updates the state of user', () => {
+      const wrapper = shallow(<App />);
+      wrapper.instance().logIn();
+      expect(wrapper.state().user.isLoggedIn).toBe(true);
     });
   });
 
@@ -122,6 +133,21 @@ describe('App component tests', () => {
       wrapper.instance().handleDisplayDrawer();
       wrapper.instance().handleHideDrawer();
       expect(wrapper.state('displayDrawer')).toBe(false);
+    });
+  });
+
+  describe('Check markNotificationAsRead', () => {
+
+    it('when remove notification read', () => {
+      const wrapper = shallow(<App />);
+      wrapper.setState({
+        user: {
+          email: '3685@holbertonschool.com',
+          password: 'azerty',
+        }});
+      expect(wrapper.state().listNotifications.length).toEqual(3);
+      wrapper.instance().markNotificationAsRead(1);
+      expect(wrapper.state().listNotifications.length).toEqual(2);
     });
   });
 });

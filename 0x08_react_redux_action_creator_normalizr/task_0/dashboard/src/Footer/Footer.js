@@ -1,27 +1,33 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { getFullYear, getFooterCopy } from '../utils/utils';
+import { AppContext } from '../App/AppContext';
 
 
 const Footer = () => {
     return (
-        <div className={css(styles.footer)}>
-            <p className={css(styles.paragraphe)}>Copyright {getFullYear()} - {getFooterCopy(true)}</p>
-        </div>
+        <AppContext.Consumer>
+            {
+                (context) => {
+                    return (
+                        <div>
+                            {
+                                context.user.isLoggedIn === false &&
+                                <p>Copyright {getFullYear()} - {getFooterCopy(true)}</p>
+                            }
+                            {
+                                context.user.isLoggedIn === true &&
+                                <a href={'#'}>Contact us</a>
+                            }
+                        </div>
+                    )
+                }
+            }
+        </AppContext.Consumer>
     );
 };
 
 const styles = StyleSheet.create({
-    footer: {
-        position: 'absolute',
-        bottom: 0,
-        borderTop: '3px solid #e1484c',
-        width: '100%',
-    },
-    paragraphe: {
-        textAlign: 'center',
-        fontStyle: 'italic',
-    },
 });
 
 export default Footer;

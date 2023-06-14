@@ -5,23 +5,17 @@ import NotificationsItem from './NotificationsItem';
 import NotificationItemShape from './NotificationItemShape';
 
 
-class Notifications extends React.Component {
+class Notifications extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.markAsRead = this.markAsRead.bind(this);
-    }
-
-    markAsRead = (id) => {
-        console.log(`Notification ${id} has been marked as read`);
-    }
-
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return (nextProps.listNotifications.length > this.props.listNotifications.length ||
-            nextProps.displayDrawer !== this.props.displayDrawer);
     }
 
     render() {
-        const { displayDrawer, listNotifications, handleDisplayDrawer, handleHideDrawer } = this.props;
+        const { displayDrawer,
+            listNotifications,
+            handleDisplayDrawer,
+            handleHideDrawer,
+            markNotificationAsRead } = this.props;
         return (
             <React.Fragment>
                 <div className={css(styles.menuItem)} onClick={handleDisplayDrawer}>
@@ -31,15 +25,7 @@ class Notifications extends React.Component {
                     <div className={css(styles.notifications, styles.notificationsMobile)}>
                         <button
                             className={css(styles.buttonMobile)}
-                            style={{
-                                position: "absolute",
-                                right: "1rem",
-                                top: "1rem",
-                                fontSize: "1rem",
-                                border: "none",
-                                background: "none",
-                                cursor: "pointer"
-                            }}
+                            style={{position: "absolute", right: "1rem", top: "1rem", fontSize: "1rem", border: "none", background: "none", cursor: "pointer"}}
                             aria-label={"Close"}
                             onClick={handleHideDrawer}
                         >x</button>
@@ -52,7 +38,7 @@ class Notifications extends React.Component {
                                     type={notification.type}
                                     value={notification.value}
                                     html={notification.html}
-                                    markAsRead={this.markAsRead}
+                                    markAsRead={markNotificationAsRead}
                                 />
                             ))}
                         </ul>
@@ -68,6 +54,7 @@ Notifications.propTypes = {
     listNotifications: PropTypes.arrayOf(NotificationItemShape),
     handleDisplayDrawer: PropTypes.func,
     handleHideDrawer: PropTypes.func,
+    markNotificationAsRead: PropTypes.func,
 };
 
 Notifications.defaultProps = {
@@ -75,6 +62,7 @@ Notifications.defaultProps = {
     listNotifications: [],
     handleDisplayDrawer: () => {},
     handleHideDrawer: () => {},
+    markNotificationAsRead: () => {},
 };
 
 const opacity = {

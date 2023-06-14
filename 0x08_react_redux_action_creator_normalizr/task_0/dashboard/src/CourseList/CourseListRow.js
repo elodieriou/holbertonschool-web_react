@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, css } from "aphrodite";
 import PropTypes from 'prop-types';
 
 
 const CourseListRow = ({isHeader, textFirstCell, textSecondCell}) => {
+    const [isChecked, setIsChecked] = useState(false);
+
+    const handleCheckbox = () => {
+        setIsChecked(!isChecked);
+    }
+
     const rowStyles = {
         backgroundColor: '#f5f5f5ab',
     }
@@ -20,8 +26,11 @@ const CourseListRow = ({isHeader, textFirstCell, textSecondCell}) => {
         </React.Fragment>
     ); else tr = (
         <React.Fragment>
-            <td className={css(styles.bodyRow)}>{textFirstCell}</td>
-            <td className={css(styles.bodyRow)}>{textSecondCell}</td>
+            <td className={css( isChecked ? [styles.rowChecked, styles.bodyRow] : styles.bodyRow)}>
+                <input type={'checkbox'} onClick={handleCheckbox}></input>
+                {textFirstCell}
+            </td>
+            <td className={css(isChecked ? [styles.rowChecked, styles.bodyRow] : styles.bodyRow)}>{textSecondCell}</td>
         </React.Fragment>
     );
 
@@ -55,6 +64,9 @@ const styles = StyleSheet.create({
     bodyRow: {
         padding: '.2rem .5rem',
         textAlign: 'left',
+    },
+    rowChecked: {
+        backgroundColor: '#e6e4e4',
     },
 });
 
