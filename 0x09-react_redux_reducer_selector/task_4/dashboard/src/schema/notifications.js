@@ -30,5 +30,5 @@ export const getAllNotificationsByUser = (userId) => {
 
 export const notificationsNormalizer = (data) => {
     const normalizedData = normalize(data, [notification]);
-    return normalizedData.entities;
+    return normalizedData.entities.notifications;
 };

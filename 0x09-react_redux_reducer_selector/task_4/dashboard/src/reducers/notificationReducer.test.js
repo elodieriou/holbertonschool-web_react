@@ -6,7 +6,7 @@ import {
     FETCH_NOTIFICATIONS_SUCCESS,
     NotificationTypeFilters
 } from '../actions/notificationActionTypes';
-import {notificationsNormalizer } from "../schema/notifications";
+import {notificationsNormalizer, notificationsNormalizerEntities } from "../schema/notifications";
 
 describe('notificationReducer tests', () => {
 
@@ -36,7 +36,9 @@ describe('notificationReducer tests', () => {
     const normalizedData = notificationsNormalizer(initialState.notifications);
     const initialStateNormalized = {
         ...initialState,
-        ...normalizedData
+        notifications: {
+            ...normalizedData
+        }
     };
 
     it('check that default state returns the initial state', () => {
@@ -73,9 +75,10 @@ describe('notificationReducer tests', () => {
 
         const expectedState = {
             filter: 'DEFAULT',
-            ...normalizedData
+            notifications: {
+                ...normalizedData
+            }
         };
-
         const reducer = notificationReducer(undefined, action);
         expect(reducer.toJS()).toEqual(expectedState);
     });
@@ -87,7 +90,9 @@ describe('notificationReducer tests', () => {
         };
         const expectedState = {
             filter: 'DEFAULT',
-            ...normalizedData
+            notifications: {
+                ...normalizedData
+            }
         };
         expectedState.notifications[2].isRead = true;
 
@@ -102,7 +107,9 @@ describe('notificationReducer tests', () => {
         };
         const expectedState = {
             filter: 'URGENT',
-            ...normalizedData
+            notifications: {
+                ...normalizedData
+            }
         };
 
         const reducer = notificationReducer(Map(initialStateNormalized), action);
