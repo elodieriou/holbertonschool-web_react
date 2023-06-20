@@ -4,7 +4,9 @@ import {
     getUnreadNotifications
 } from './notificationSelector';
 import { notificationReducer } from '../reducers/notificationReducer';
-import { FETCH_NOTIFICATIONS_SUCCESS } from '../actions/notificationActionTypes';
+import { FETCH_NOTIFICATIONS_SUCCESS, MARK_AS_READ } from '../actions/notificationActionTypes';
+import { notificationsNormalizer } from '../schema/notifications';
+import { Map } from 'immutable';
 
 describe('notificationSelectors tests', () => {
 
@@ -41,7 +43,45 @@ describe('notificationSelectors tests', () => {
     });
 
     it('check that getUnreadNotifications returns a list of all unread notifications', () => {
+        const action = {
+            type: MARK_AS_READ,
+            index: 2
+        };
+        const initialState = {
+            filter: "DEFAULT",
+            notifications: [
+                {
+                    id: 1,
+                    isRead: false,
+                    type: "default",
+                    value: "New course available"
+                },
+                {
+                    id: 2,
+                    isRead: false,
+                    type: "urgent",
+                    value: "New resume available"
+                },
+                {
+                    id: 3,
+                    isRead: false,
+                    type: "urgent",
+                    value: "New data available"
+                }
+            ]
+        };
+        const normalizedData = notificationsNormalizer(initialState.notifications);
+        const initialStateNormalized = {
+            ...initialState,
+            notifications: {
+                ...normalizedData
+            }
+        };
+        const reducer = notificationReducer(Map(initialStateNormalized), action);
         const selector = getUnreadNotifications(reducer);
+
         expect(selector).toHaveLength(2);
+        expect(selector[0].isRead).toEqual(false);
+        expect(selector[1].isRead).toEqual(false);
     });
 });

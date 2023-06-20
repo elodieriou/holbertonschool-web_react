@@ -11,7 +11,7 @@ export const getNotifications = (state) => {
 
 export const getUnreadNotifications = (state) => {
     const notifications = state.get('notifications');
-    notifications['2'].isRead = true;
+    console.log(notifications);
     return Object.keys(notifications)
         .map((key) => notifications[key])
         .filter((notification) => notification.isRead === false);
