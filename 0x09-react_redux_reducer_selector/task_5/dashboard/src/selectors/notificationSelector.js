@@ -5,13 +5,14 @@ export const filterTypeSelected = (state) => {
 };
 
 export const getNotifications = (state) => {
-    const notifications = state.get('notifications');
+    const notifications = state.notifications;
     return Map(notifications);
 };
 
 export const getUnreadNotifications = (state) => {
     const notifications = state.get('notifications');
-    return Object.keys(notifications)
-        .map((key) => notifications[key])
+    const unreadNotifications = Object.values(notifications)
         .filter((notification) => notification.isRead === false);
+    const mapEntries = unreadNotifications.map((notification) => [notification.id, notification]);
+    return Map(mapEntries);
 };
