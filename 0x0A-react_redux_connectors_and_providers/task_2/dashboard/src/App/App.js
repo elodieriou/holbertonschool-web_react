@@ -80,7 +80,7 @@ class App extends React.Component {
         const { displayDrawer, displayNotificationDrawer, hideNotificationDrawer } = this.props;
 
         return (
-            <AppContext.Provider value={{ user: user, logOut: logOut }}>
+            <AppContext.Provider value={{ user, logOut }}>
                 <Notifications listNotifications={listNotifications}
                                displayDrawer={displayDrawer}
                                handleDisplayDrawer={displayNotificationDrawer}
@@ -157,6 +157,4 @@ export const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
-
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
