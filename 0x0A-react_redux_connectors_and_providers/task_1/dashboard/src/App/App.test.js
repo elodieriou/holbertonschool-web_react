@@ -91,53 +91,6 @@ describe('App component tests', () => {
     });
   });
 
-  describe('Check displayDrawer', () => {
-    it('when the App component is called, the notifications are not display', () => {
-      const wrapper = shallow(<App />);
-      expect(wrapper.state('displayDrawer')).toBe(false);
-    });
-
-    it('when the method handleDisplayDrawer is spied, the state of displayDrawer change on true', () => {
-      const wrapper = shallow(<App />);
-
-      const handleDisplayDrawerSpy = jest.spyOn(wrapper.instance(), 'handleDisplayDrawer');
-      handleDisplayDrawerSpy();
-      expect(handleDisplayDrawerSpy).toHaveBeenCalled();
-
-      wrapper.setState({ displayDrawer: true });
-      expect(wrapper.state('displayDrawer')).toBe(true);
-
-      jest.restoreAllMocks();
-    });
-
-    it('when the method handleDisplayDrawer is called, the state of displayDrawer change on true', () => {
-      const wrapper = shallow(<App />);
-      wrapper.instance().handleDisplayDrawer();
-      expect(wrapper.state('displayDrawer')).toBe(true);
-    });
-
-    it('when the method handleHideDrawer is spied, the state of displayDrawer change on false', () => {
-      const wrapper = shallow(<App />);
-      wrapper.setState({ displayDrawer: true });
-
-      const handleHideDrawerSpy = jest.spyOn(wrapper.instance(), 'handleHideDrawer');
-      handleHideDrawerSpy();
-      expect(handleHideDrawerSpy).toHaveBeenCalled();
-
-      wrapper.setState({ displayDrawer: false });
-      expect(wrapper.state('displayDrawer')).toBe(false);
-
-      jest.restoreAllMocks();
-    });
-
-    it('when the method handleHideDrawer is called, the state of displayDrawer change on false', () => {
-      const wrapper = shallow(<App />);
-      wrapper.instance().handleDisplayDrawer();
-      wrapper.instance().handleHideDrawer();
-      expect(wrapper.state('displayDrawer')).toBe(false);
-    });
-  });
-
   describe('Check markNotificationAsRead', () => {
 
     it('when remove notification read', () => {
@@ -155,10 +108,24 @@ describe('App component tests', () => {
 
   describe('Check mapStateToProps', () => {
 
-    it('verify if the function return the right object', () => {
+    it('verify that return the right object if only isUserLoggedIn is passed', () => {
       let state = fromJS({ isUserLoggedIn: true });
       const result = mapStateToProps(state);
-      const expectedResult = { isLoggedIn: true };
+      const expectedResult = { isLoggedIn: true, displayDrawer: undefined };
+      expect(result).toEqual(expectedResult);
+    });
+
+    it('verify that return the right object if only isNotificationDrawerVisible is passed', () => {
+      let state = fromJS({ isNotificationDrawerVisible: true });
+      const result = mapStateToProps(state);
+      const expectedResult = { isLoggedIn: undefined, displayDrawer: true };
+      expect(result).toEqual(expectedResult);
+    });
+
+    it('verify that return the right object if isUserLoggedIn and isNotificationDrawerVisible are passed', () => {
+      let state = fromJS({ isUserLoggedIn: false, isNotificationDrawerVisible: true });
+      const result = mapStateToProps(state);
+      const expectedResult = { isLoggedIn: false, displayDrawer: true };
       expect(result).toEqual(expectedResult);
     });
   });
