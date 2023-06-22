@@ -85,10 +85,12 @@ class App extends React.Component {
             {id: 2, name: "Webpack", credit: 20},
             {id: 3, name: "React", credit: 40},
         ];
+        const { user, logOut, listNotifications } = this.state;
+        const { displayDrawer } = this.props;
         return (
-            <AppContext.Provider value={{ user: this.state.user, logOut: this.state.logOut }}>
-                <Notifications listNotifications={this.state.listNotifications}
-                               displayDrawer={this.props.displayDrawer}
+            <AppContext.Provider value={{ user: user, logOut: logOut }}>
+                <Notifications listNotifications={listNotifications}
+                               displayDrawer={displayDrawer}
                                handleDisplayDrawer={this.handleDisplayDrawer}
                                handleHideDrawer={this.handleHideDrawer}
                                markNotificationAsRead={this.markNotificationAsRead}
@@ -121,11 +123,11 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-
+    displayDrawer: PropTypes.bool
 };
 
 App.defaultProps = {
-
+    displayDrawer: false
 };
 
 const styles = StyleSheet.create({
