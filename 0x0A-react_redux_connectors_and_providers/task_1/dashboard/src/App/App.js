@@ -11,9 +11,10 @@ import Login from '../Login/Login';
 import CourseList from '../CourseList/CourseList';
 import Footer from '../Footer/Footer';
 import { getLatestNotification } from '../utils/utils';
-import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
-import BodySection from "../BodySection/BodySection";
+import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
+import BodySection from '../BodySection/BodySection';
 import { user, logOut, AppContext } from './AppContext';
+import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';
 
 class App extends React.Component {
     constructor(props) {
@@ -28,8 +29,8 @@ class App extends React.Component {
             ],
         };
         this.handleKeyDown = this.handleKeyDown.bind(this);
-        this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
-        this.handleHideDrawer = this.handleHideDrawer.bind(this);
+        // this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
+        // this.handleHideDrawer = this.handleHideDrawer.bind(this);
         this.logIn = this.logIn.bind(this);
         this.logOut = this.logOut.bind(this);
         this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
@@ -50,13 +51,13 @@ class App extends React.Component {
         }
     }
 
-    handleDisplayDrawer = () => {
+    /* handleDisplayDrawer = () => {
         this.setState({ displayDrawer: true });
-    }
+    } */
 
-    handleHideDrawer = () => {
+    /* handleHideDrawer = () => {
         this.setState({ displayDrawer: false })
-    }
+    }*/
 
     logIn = (email, password) => {
         this.setState({
@@ -86,13 +87,14 @@ class App extends React.Component {
             {id: 3, name: "React", credit: 40},
         ];
         const { user, logOut, listNotifications } = this.state;
-        const { displayDrawer } = this.props;
+        const { displayDrawer, displayNotificationDrawer, hideNotificationDrawer } = this.props;
+
         return (
             <AppContext.Provider value={{ user: user, logOut: logOut }}>
                 <Notifications listNotifications={listNotifications}
                                displayDrawer={displayDrawer}
-                               handleDisplayDrawer={this.handleDisplayDrawer}
-                               handleHideDrawer={this.handleHideDrawer}
+                               handleDisplayDrawer={displayNotificationDrawer}
+                               handleHideDrawer={hideNotificationDrawer}
                                markNotificationAsRead={this.markNotificationAsRead}
                 />
                 <Header />
@@ -123,11 +125,15 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-    displayDrawer: PropTypes.bool
+    displayDrawer: PropTypes.bool,
+    displayNotificationDrawer: PropTypes.func,
+    hideNotificationDrawer: PropTypes.func
 };
 
 App.defaultProps = {
-    displayDrawer: false
+    displayDrawer: false,
+    displayNotificationDrawer: () => {},
+    hideNotificationDrawer: () => {}
 };
 
 const styles = StyleSheet.create({
@@ -154,7 +160,13 @@ export const mapStateToProps = (state) => {
         displayDrawer: state.get('isNotificationDrawerVisible')
     };
 };
+export const mapDispatchToProps = (dispatch) => {
+    return {
+        displayNotificationDrawer: () => dispatch(displayNotificationDrawer()),
+        hideNotificationDrawer: () => dispatch(hideNotificationDrawer())
+    };
+};
 
-export const ConnectedApp = connect(mapStateToProps)(App);
+export const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
 
 export default App;
