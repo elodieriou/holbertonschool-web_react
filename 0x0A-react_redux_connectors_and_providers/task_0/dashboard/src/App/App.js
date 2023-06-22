@@ -1,6 +1,10 @@
+// React import
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+// Files import
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
@@ -9,9 +13,7 @@ import Footer from '../Footer/Footer';
 import { getLatestNotification } from '../utils/utils';
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import BodySection from "../BodySection/BodySection";
-import { user, logOut, AppContext} from './AppContext';
-import { connect } from 'react-redux';
-
+import { user, logOut, AppContext } from './AppContext';
 
 class App extends React.Component {
     constructor(props) {
