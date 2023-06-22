@@ -29,8 +29,6 @@ class App extends React.Component {
             ],
         };
         this.handleKeyDown = this.handleKeyDown.bind(this);
-        // this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
-        // this.handleHideDrawer = this.handleHideDrawer.bind(this);
         this.logIn = this.logIn.bind(this);
         this.logOut = this.logOut.bind(this);
         this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
@@ -50,14 +48,6 @@ class App extends React.Component {
             this.props.logOut();
         }
     }
-
-    /* handleDisplayDrawer = () => {
-        this.setState({ displayDrawer: true });
-    } */
-
-    /* handleHideDrawer = () => {
-        this.setState({ displayDrawer: false })
-    }*/
 
     logIn = (email, password) => {
         this.setState({
