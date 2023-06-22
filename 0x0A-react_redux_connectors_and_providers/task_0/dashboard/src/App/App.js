@@ -153,6 +153,4 @@ export const mapStateToProps = (state) => {
     };
 };
 
-export const ConnectedApp = connect(mapStateToProps)(App);
-
-export default App;
+export default connect(mapStateToProps)(App);
