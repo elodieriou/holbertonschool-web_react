@@ -1,11 +1,13 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import App from './App';
+import { fromJS } from 'immutable';
+
+import App, { mapStateToProps } from './App';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
 import CourseList from '../CourseList/CourseList';
 import Footer from '../Footer/Footer';
-import {getLatestNotification} from '../utils/utils';
+import { getLatestNotification } from '../utils/utils';
 
 describe('App component tests', () => {
 
@@ -148,6 +150,16 @@ describe('App component tests', () => {
       expect(wrapper.state().listNotifications.length).toEqual(3);
       wrapper.instance().markNotificationAsRead(1);
       expect(wrapper.state().listNotifications.length).toEqual(2);
+    });
+  });
+
+  describe('Check mapStateToProps', () => {
+
+    it('verify if the function return the right object', () => {
+      let state = fromJS({ isUserLoggedIn: true });
+      const result = mapStateToProps(state);
+      const expectedResult = { isLoggedIn: true };
+      expect(result).toEqual(expectedResult);
     });
   });
 });
