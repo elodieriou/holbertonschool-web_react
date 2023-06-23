@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import { Map } from 'immutable';
 
 import App from './App/App';
-import { uiReducer } from './reducers/uiReducer';
+import { uiReducer, initialState } from './reducers/uiReducer';
 
-const middleware = [thunk];
-const store = createStore(uiReducer, applyMiddleware(...middleware));
+const middleware = applyMiddleware(thunk);
+const store = createStore(uiReducer, Map(initialState), applyMiddleware(thunk));
 
 const rootId = document.getElementById("root");
 ReactDOM.render(

@@ -1,19 +1,18 @@
-// React import
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-// Files import
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
 import CourseList from '../CourseList/CourseList';
 import Footer from '../Footer/Footer';
 import { getLatestNotification } from '../utils/utils';
-import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
-import BodySection from '../BodySection/BodySection';
-import { displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout } from '../actions/uiActionCreators';
+import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
+import BodySection from "../BodySection/BodySection";
+import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';
+import { loginRequest as login, logout } from '../actions/uiActionCreators';
 
 class App extends React.Component {
     constructor(props) {
@@ -58,8 +57,7 @@ class App extends React.Component {
             {id: 3, name: "React", credit: 40},
         ];
         const { listNotifications } = this.state;
-        const { isLoggedIn, login, displayDrawer, displayNotificationDrawer, hideNotificationDrawer } = this.props;
-
+        const { isLoggedIn, displayDrawer, displayNotificationDrawer, hideNotificationDrawer, login } = this.props;
         return (
             <React.Fragment>
                 <Notifications listNotifications={listNotifications}
@@ -71,13 +69,13 @@ class App extends React.Component {
                 <Header />
                 <div className={css(styles.body)}>
                     {
-                        isLoggedIn === true &&
+                        isLoggedIn &&
                         <BodySectionWithMarginBottom title={"Course list"}>
                             <CourseList listCourses={listCourses}/>
                         </BodySectionWithMarginBottom>
                     }
                     {
-                        isLoggedIn === false &&
+                        !isLoggedIn &&
                         <BodySectionWithMarginBottom title={"Log in to continue"}>
                             <Login logIn={login}/>
                         </BodySectionWithMarginBottom>
@@ -109,7 +107,7 @@ App.defaultProps = {
     displayNotificationDrawer: () => {},
     hideNotificationDrawer: () => {},
     login: () => {},
-    logout: () => {},
+    logout: () => {}
 };
 
 const styles = StyleSheet.create({
@@ -136,13 +134,13 @@ export const mapStateToProps = (state) => {
         displayDrawer: state.get('isNotificationDrawerVisible')
     };
 };
-export const mapDispatchToProps = (dispatch) => {
-    return {
-        displayNotificationDrawer: () => dispatch(displayNotificationDrawer()),
-        hideNotificationDrawer: () => dispatch(hideNotificationDrawer()),
-        login: () => dispatch(loginRequest()),
-        logout: ()=> dispatch(logout())
-    };
-};
 
+export const mapDispatchToProps = {
+    displayNotificationDrawer,
+    hideNotificationDrawer,
+    login,
+    logout
+};
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+export { App };

@@ -1,33 +1,47 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import { getFullYear, getFooterCopy } from '../utils/utils';
-import { AppContext } from '../App/AppContext';
 
+class Footer extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-const Footer = () => {
-    return (
-        <AppContext.Consumer>
-            {
-                (context) => {
-                    return (
-                        <div>
-                            {
-                                context.user.isLoggedIn === false &&
-                                <p>Copyright {getFullYear()} - {getFooterCopy(true)}</p>
-                            }
-                            {
-                                context.user.isLoggedIn === true &&
-                                <a href={'#'}>Contact us</a>
-                            }
-                        </div>
-                    )
+    render() {
+        const { user } = this.props;
+        return (
+            <div>
+                {
+                    !user &&
+                    <p>Copyright {getFullYear()} - {getFooterCopy(true)}</p>
                 }
-            }
-        </AppContext.Consumer>
-    );
+                {
+                    user &&
+                    <a href={'#'}>Contact us</a>
+                }
+            </div>
+        );
+    }
+}
+
+Footer.propTypes = {
+    user: PropTypes.object
 };
+
+Footer.defaultProps = {
+    user: null
+}
 
 const styles = StyleSheet.create({
 });
 
-export default Footer;
+export const mapStateToProps = (state) => {
+    return {
+        user: state.get('user')
+    }
+};
+
+export default connect(mapStateToProps)(Footer);

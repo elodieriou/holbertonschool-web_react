@@ -1,30 +1,45 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import logo from '../assets/holberton-logo.jpg';
-import { AppContext } from '../App/AppContext';
+import { logout } from '../actions/uiActionCreators';
 
 class Header extends React.Component {
     constructor(props) {
         super(props);
     }
+
     render() {
+        const { user, logout } = this.props;
         return (
             <React.Fragment>
                 <div className={css(styles.header)}>
-                    <img className={css(styles.image)} src={logo} alt={"Holberton logo"} />
+                    <img className={css(styles.image)} src={logo} alt={"Holberton logo"}/>
                     <h1 className={css(styles.title)}>School dashboard</h1>
                 </div>
                 {
-                    this.context.user.isLoggedIn === true &&
+                    user &&
                     <div id={'logoutSection'} className={css(styles.center)}>
-                        <h3>Welcome <strong>{this.context.user.email}</strong> <span className={css(styles.logout)} onClick={this.context.logOut}>(logout)</span></h3>
+                        <h3>Welcome <strong>{`${user.email}`}</strong> <span className={css(styles.logout)}
+                                                                             onClick={logout}>(logout)</span></h3>
                     </div>
                 }
             </React.Fragment>
         );
     }
 }
-Header.contextType = AppContext;
+
+Header.propTypes = {
+    user: PropTypes.object,
+    logout: PropTypes.func
+};
+
+Header.defaultProps = {
+    user: null,
+    logout: () => {}
+}
 
 const styles = StyleSheet.create({
     header: {
@@ -49,4 +64,16 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     }
 });
-export default Header;
+
+export const mapStateToProps = (state) => {
+    console.log(state.toJS())
+    return {
+        user: state.get('user')
+    };
+};
+
+export const mapDispatchToProps = {
+    logout
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

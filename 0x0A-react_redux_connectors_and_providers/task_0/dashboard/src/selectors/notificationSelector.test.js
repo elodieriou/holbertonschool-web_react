@@ -38,7 +38,7 @@ describe('notificationSelectors tests', () => {
     });
 
     it('check that getNotifications returns a list of all notifications', () => {
-        const selector = getNotifications(reducer);
+        const selector = getNotifications(reducer.toJS());
         expect(selector.toJS()).toEqual(reducer.toJS().notifications);
     });
 
@@ -79,7 +79,6 @@ describe('notificationSelectors tests', () => {
         };
         const reducer = notificationReducer(Map(initialStateNormalized), action);
         const selector = getUnreadNotifications(reducer);
-
         expect(selector.size).toBe(2);
         expect(selector.toJS()['1']['isRead']).toEqual(false);
         expect(selector.toJS()['3']['isRead']).toEqual(false);

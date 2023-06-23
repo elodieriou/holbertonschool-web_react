@@ -5,7 +5,7 @@ export const filterTypeSelected = (state) => {
 };
 
 export const getNotifications = (state) => {
-    const notifications = state.get('notifications');
+    const notifications = state.notifications;
     return Map(notifications);
 };
 

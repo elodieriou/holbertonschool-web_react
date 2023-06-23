@@ -1,6 +1,6 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { mapStateToProps } from './App';
+import { App, mapStateToProps } from './App';
 
 describe('App component tests', () => {
 

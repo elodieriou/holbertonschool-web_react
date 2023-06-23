@@ -1,19 +1,18 @@
-// React import
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-// Files import
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
 import CourseList from '../CourseList/CourseList';
 import Footer from '../Footer/Footer';
-import { getLatestNotification } from '../utils/utils';
+import {getLatestNotification} from '../utils/utils';
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import BodySection from "../BodySection/BodySection";
-import { user, logOut, AppContext } from './AppContext';
+import { user, logOut, AppContext} from './AppContext';
+
 
 class App extends React.Component {
     constructor(props) {
@@ -85,7 +84,8 @@ class App extends React.Component {
             {id: 1, name: "ES6", credit: 60},
             {id: 2, name: "Webpack", credit: 20},
             {id: 3, name: "React", credit: 40},
-        ]
+        ];
+        const { isLoggedIn } = this.props;
         return (
             <AppContext.Provider value={{ user: this.state.user, logOut: this.state.logOut }}>
                 <Notifications listNotifications={this.state.listNotifications}
@@ -97,13 +97,13 @@ class App extends React.Component {
                 <Header />
                 <div className={css(styles.body)}>
                     {
-                        this.state.user.isLoggedIn === true &&
+                        isLoggedIn &&
                         <BodySectionWithMarginBottom title={"Course list"}>
                             <CourseList listCourses={listCourses}/>
                         </BodySectionWithMarginBottom>
                     }
                     {
-                        this.state.user.isLoggedIn === false &&
+                        !isLoggedIn &&
                         <BodySectionWithMarginBottom title={"Log in to continue"}>
                             <Login logIn={this.logIn}/>
                         </BodySectionWithMarginBottom>
@@ -122,11 +122,11 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-
+    isLoggedIn: PropTypes.bool
 };
 
 App.defaultProps = {
-
+    isLoggedIn: false
 };
 
 const styles = StyleSheet.create({
@@ -152,5 +152,4 @@ export const mapStateToProps = (state) => {
         isLoggedIn: state.get('isUserLoggedIn')
     };
 };
-
 export default connect(mapStateToProps)(App);
