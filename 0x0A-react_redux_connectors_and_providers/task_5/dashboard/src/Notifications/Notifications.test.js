@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Notifications from './Notifications';
-import {getLatestNotification} from '../utils/utils';
+import { Notifications } from './Notifications';
+import { getLatestNotification } from '../utils/utils';
 
 describe('Notifications component tests', () => {
 
@@ -16,6 +16,10 @@ describe('Notifications component tests', () => {
             ]
             wrapper = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications}/>);
         });
+
+        afterEach(() => {
+            jest.restoreAllMocks();
+        })
 
         it('renders Notifications component without crashing', () => {
             expect(wrapper.exists()).toBe(true);
@@ -136,6 +140,14 @@ describe('Notifications component tests', () => {
             const wrapper = shallow(<Notifications displayDrawer={true} handleHideDrawer={handleHideDrawerSpy}/>);
             wrapper.find('button').simulate('click');
             expect(handleHideDrawerSpy).toHaveBeenCalled();
+        });
+    });
+
+    describe('when fetchNotifications is called when the component is mounted', () => {
+        it('verify that fetchNotifications was called once time', () => {
+            const fetchNotifications = jest.fn();
+            shallow(<Notifications displayDrawer={true} fetchNotifications={fetchNotifications}/>);
+            expect(fetchNotifications).toHaveBeenCalledTimes(1);
         });
     });
 });

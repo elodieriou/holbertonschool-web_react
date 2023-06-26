@@ -73,9 +73,7 @@ describe('notificationSelectors tests', () => {
         const normalizedData = notificationsNormalizer(initialState.notifications);
         const initialStateNormalized = {
             ...initialState,
-            notifications: {
-                ...normalizedData
-            }
+            notifications: normalizedData.entities.notifications
         };
         const reducer = notificationReducer(Map(initialStateNormalized), action);
         const selector = getUnreadNotifications(reducer);
