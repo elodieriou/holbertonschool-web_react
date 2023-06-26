@@ -11,8 +11,8 @@ import Footer from '../Footer/Footer';
 import { getLatestNotification } from '../utils/utils';
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import BodySection from "../BodySection/BodySection";
-import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';
-import { loginRequest as login, logout } from '../actions/uiActionCreators';
+import {displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout} from '../actions/uiActionCreators';
+import {logOut} from "./AppContext";
 
 class App extends React.Component {
     constructor(props) {
@@ -135,11 +135,13 @@ export const mapStateToProps = (state) => {
     };
 };
 
-export const mapDispatchToProps = {
-    displayNotificationDrawer,
-    hideNotificationDrawer,
-    login,
-    logout
+export const mapDispatchToProps = (dispatch) => {
+    return {
+        displayNotificationDrawer: () => dispatch(displayNotificationDrawer()),
+        hideNotificationDrawer: () => dispatch(hideNotificationDrawer()),
+        login: (email, password) => dispatch(loginRequest(email, password)),
+        logout: () => dispatch(logout())
+    };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 

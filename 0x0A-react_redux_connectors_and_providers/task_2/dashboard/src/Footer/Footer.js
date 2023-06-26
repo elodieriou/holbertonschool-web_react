@@ -45,3 +45,5 @@ export const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(Footer);
+
+export { Footer };
