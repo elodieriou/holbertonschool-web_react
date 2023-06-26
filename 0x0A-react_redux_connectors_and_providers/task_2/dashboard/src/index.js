@@ -9,7 +9,7 @@ import App from './App/App';
 import { uiReducer, initialState } from './reducers/uiReducer';
 
 const middleware = applyMiddleware(thunk);
-const store = createStore(uiReducer, Map(initialState), applyMiddleware(thunk));
+const store = createStore(uiReducer, middleware);
 
 const rootId = document.getElementById("root");
 ReactDOM.render(
