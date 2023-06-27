@@ -6,7 +6,7 @@ import {
     NotificationTypeFilters
 } from '../actions/notificationActionTypes';
 import { notificationsNormalizer } from '../schema/notifications';
-import { Map, setIn, set, mergeDeep } from 'immutable';
+import { Map, setIn, set, mergeDeep, fromJS } from 'immutable';
 
 const initialState = {
     notifications: {},
@@ -17,13 +17,13 @@ const initialState = {
 export const notificationReducer = (state = Map(initialState), action) => {
     switch (action.type) {
         case FETCH_NOTIFICATIONS_SUCCESS:
-            const normalizedData = notificationsNormalizer(action.data);
-            Object.keys(normalizedData.entities.notifications).forEach((key) => {
-                normalizedData.entities.notifications[key].isRead = false;
+            const data = notificationsNormalizer(action.data);
+            Object.keys(data.notifications).forEach((item) => {
+                data.notifications[item].isRead = false;
             });
-            return mergeDeep(state, normalizedData.entities);
+            return mergeDeep(state, Map(data));
         case MARK_AS_READ:
-            return setIn(state, ['notifications', String(action.index), 'isRead'], true);
+            return setIn(state, ['messages', String(action.index), 'isRead'], true);
         case SET_TYPE_FILTER:
             return set(state, 'filter', action.filter);
         case SET_LOADING_STATE:

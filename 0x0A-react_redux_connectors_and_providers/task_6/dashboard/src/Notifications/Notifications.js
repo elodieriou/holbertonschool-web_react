@@ -4,8 +4,9 @@ import { StyleSheet, css } from 'aphrodite';
 import { connect } from 'react-redux';
 
 import NotificationsItem from './NotificationsItem';
-import { fetchNotifications } from "../actions/notificationActionCreators";
-
+import {fetchNotifications, markAsARead} from '../actions/notificationActionCreators';
+import { getUnreadNotifications } from '../selectors/notificationSelector';
+import { Map } from 'immutable';
 class Notifications extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -22,8 +23,6 @@ class Notifications extends React.PureComponent {
             handleHideDrawer,
             markNotificationAsRead } = this.props;
 
-        const notificationsArray = Object.values(listNotifications);
-
         return (
             <React.Fragment>
                 <div className={css(styles.menuItem)} onClick={handleDisplayDrawer}>
@@ -37,9 +36,9 @@ class Notifications extends React.PureComponent {
                             aria-label={"Close"}
                             onClick={handleHideDrawer}
                         >x</button>
-                        {notificationsArray.length === 0 ? <p>No new notification for now</p> : <p>Here is the list of notifications</p>}
+                        {listNotifications.length === 0 ? <p>No new notification for now</p> : <p>Here is the list of notifications</p>}
                         <ul className={css(styles.ulMobile)}>
-                            {notificationsArray.map((notification) => (
+                            {listNotifications.map((notification) => (
                                 <NotificationsItem
                                     id={notification.id || notification.guid}
                                     key={notification.id || notification.guid}
@@ -154,13 +153,14 @@ const styles = StyleSheet.create({
 
 export const mapStateToProps = (state) => {
     return {
-        listNotifications: state.notifications.get('messages')
+        listNotifications: getUnreadNotifications(state)
     };
 };
 
 export const mapDispatchToProps = (dispatch) => {
     return {
-        fetchNotifications: () => dispatch(fetchNotifications())
+        fetchNotifications: () => dispatch(fetchNotifications()),
+        markNotificationAsRead: (index) => dispatch(markAsARead(index))
     };
 };
 
