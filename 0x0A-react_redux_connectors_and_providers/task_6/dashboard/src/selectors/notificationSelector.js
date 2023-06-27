@@ -10,9 +10,9 @@ export const getNotifications = (state) => {
 };
 
 export function getUnreadNotifications(state) {
-    const notifications = Map(state.notifications.get('messages'));
+    const notifications = state.notifications.get('messages');
     if (notifications) {
-        return notifications.valueSeq().filter((notification) => notification.isRead === false);
+        return notifications.valueSeq().filter((notification) => !notification.get('isRead'));
     }
     return notifications;
 }

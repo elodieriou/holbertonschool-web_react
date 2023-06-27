@@ -6,7 +6,7 @@ import {
 import { notificationReducer } from '../reducers/notificationReducer';
 import { FETCH_NOTIFICATIONS_SUCCESS, MARK_AS_READ } from '../actions/notificationActionTypes';
 import { notificationsNormalizer } from '../schema/notifications';
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
 
 describe('notificationSelectors tests', () => {
 
@@ -43,42 +43,56 @@ describe('notificationSelectors tests', () => {
     });
 
     it('check that getUnreadNotifications returns a list of all unread notifications', () => {
-        const action = {
-            type: MARK_AS_READ,
-            index: 2
-        };
         const initialState = {
-            filter: "DEFAULT",
-            notifications: [
+            notifications: fromJS({})
+        };
+
+        const action = {
+            type: FETCH_NOTIFICATIONS_SUCCESS,
+            data: [
                 {
-                    id: 1,
-                    isRead: false,
-                    type: "default",
-                    value: "New course available"
+                    "id": "5debd76480edafc8af244228",
+                    "author": {
+                        "id": "5debd764a7c57c7839d722e9",
+                        "name": {
+                            "first": "Poole",
+                            "last": "Sanders"
+                        },
+                        "email": "poole.sanders@holberton.nz",
+                        "picture": "http://placehold.it/32x32",
+                        "age": 25
+                    },
+                    "context": {
+                        "guid": "2d8e40be-1c78-4de0-afc9-fcc147afd4d2",
+                        "isRead": true,
+                        "type": "urgent",
+                        "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
+                    }
                 },
                 {
-                    id: 2,
-                    isRead: false,
-                    type: "urgent",
-                    value: "New resume available"
-                },
-                {
-                    id: 3,
-                    isRead: false,
-                    type: "urgent",
-                    value: "New data available"
+                    "id": "5debd764507712e7a1307303",
+                    "author": {
+                        "id": "5debd7648ba8641ce0a34ea4",
+                        "name": {
+                            "first": "Norton",
+                            "last": "Grimes"
+                        },
+                        "email": "norton.grimes@holberton.nz",
+                        "picture": "http://placehold.it/32x32",
+                        "age": 37
+                    },
+                    "context": {
+                        "guid": "cec84b7a-7be4-4af0-b833-f1485433f66e",
+                        "isRead": false,
+                        "type": "urgent",
+                        "value": "ut labore et dolore magna aliqua. Dignissim convallis aenean et tortor at risus viverra adipiscing. Ac tortor dignissim convallis aenean et. "
+                    }
                 }
             ]
         };
-        const normalizedData = notificationsNormalizer(initialState.notifications);
-        const initialStateNormalized = {
-            ...initialState,
-            notifications: normalizedData.entities.notifications
-        };
-        const reducer = notificationReducer(Map(initialStateNormalized), action);
-        const selector = getUnreadNotifications(reducer);
-        expect(selector.size).toBe(2);
-        expect(selector.toJS()['1']['isRead']).toEqual(false);
-        expect(selector.toJS()['3']['isRead']).toEqual(false);
+        initialState.notifications = notificationReducer(undefined, action);
+        const selector = getUnreadNotifications(initialState);
+        expect(selector.count()).toBe(1);
+        expect(selector.toJS()[0]['guid']).toBe('cec84b7a-7be4-4af0-b833-f1485433f66e');
     });
 });

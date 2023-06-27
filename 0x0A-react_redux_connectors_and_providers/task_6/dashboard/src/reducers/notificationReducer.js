@@ -18,10 +18,10 @@ export const notificationReducer = (state = Map(initialState), action) => {
     switch (action.type) {
         case FETCH_NOTIFICATIONS_SUCCESS:
             const data = notificationsNormalizer(action.data);
-            Object.keys(data.notifications).forEach((item) => {
-                data.notifications[item].isRead = false;
+            Object.keys(data.notifications).forEach((key) => {
+                data.notifications[key].isRead = false;
             });
-            return mergeDeep(state, Map(data));
+            return state.mergeDeep(fromJS(data));
         case MARK_AS_READ:
             return setIn(state, ['messages', String(action.index), 'isRead'], true);
         case SET_TYPE_FILTER:

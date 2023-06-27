@@ -38,7 +38,7 @@ describe('notificationReducer tests', () => {
     const normalizedData = notificationsNormalizer(initialState.notifications);
     const initialStateNormalized = {
         ...initialState,
-        notifications: normalizedData.entities.notifications
+        notifications: normalizedData.notifications
     };
 
     it('check that default state returns the initial state', () => {
@@ -77,7 +77,7 @@ describe('notificationReducer tests', () => {
         const expectedState = {
             filter: 'DEFAULT',
             loading: false,
-            notifications: normalizedData.entities.notifications
+            notifications: normalizedData.notifications
         };
         const reducer = notificationReducer(undefined, action);
         expect(reducer.toJS()).toEqual(expectedState);
@@ -88,14 +88,25 @@ describe('notificationReducer tests', () => {
             type: MARK_AS_READ,
             index: 2
         };
-        const expectedState = {
-            filter: 'DEFAULT',
-            loading: false,
-            notifications: normalizedData.entities.notifications
+        const initialState = {
+            filter: "DEFAULT",
+            messages: {
+                "1": { isRead: false },
+                "2": { isRead: false },
+                "3": { isRead: false },
+            },
+            loading: false
         };
-        expectedState.notifications[2].isRead = true;
-
-        const reducer = notificationReducer(Map(initialStateNormalized), action);
+        const expectedState = {
+            filter: "DEFAULT",
+            messages: {
+                "1": { isRead: false },
+                "2": { isRead: true },
+                "3": { isRead: false },
+            },
+            loading: false
+        };
+        const reducer = notificationReducer(Map(initialState), action);
         expect(reducer.toJS()).toEqual(expectedState);
     });
 
@@ -107,7 +118,7 @@ describe('notificationReducer tests', () => {
         const expectedState = {
             filter: 'URGENT',
             loading: false,
-            notifications: normalizedData.entities.notifications
+            notifications: normalizedData.notifications
         };
 
         const reducer = notificationReducer(Map(initialStateNormalized), action);
@@ -122,7 +133,7 @@ describe('notificationReducer tests', () => {
         const expectedState = {
             filter: 'DEFAULT',
             loading: true,
-            notifications: normalizedData.entities.notifications
+            notifications: normalizedData.notifications
         };
 
         const reducer = notificationReducer(Map(initialStateNormalized), action);

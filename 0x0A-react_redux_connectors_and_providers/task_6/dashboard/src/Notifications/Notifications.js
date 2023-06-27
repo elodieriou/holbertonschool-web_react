@@ -38,16 +38,16 @@ class Notifications extends React.PureComponent {
                         >x</button>
                         {listNotifications.length === 0 ? <p>No new notification for now</p> : <p>Here is the list of notifications</p>}
                         <ul className={css(styles.ulMobile)}>
-                            {listNotifications.map((notification) => (
-                                <NotificationsItem
-                                    id={notification.id || notification.guid}
-                                    key={notification.id || notification.guid}
-                                    type={notification.type}
-                                    value={notification.value}
-                                    html={notification.html}
+                            {listNotifications.valueSeq().map((notification) => {
+                                return <NotificationsItem
+                                    id={notification.get('id') || notification.get('guid')}
+                                    key={notification.get('id') || notification.get('guid')}
+                                    type={notification.get('type')}
+                                    value={notification.get('value')}
+                                    html={notification.get('html')}
                                     markAsRead={markNotificationAsRead}
                                 />
-                            ))}
+                            })}
                         </ul>
                     </div>
                 )}
