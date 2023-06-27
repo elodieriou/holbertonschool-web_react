@@ -4,8 +4,8 @@ import { StyleSheet, css } from 'aphrodite';
 import { connect } from 'react-redux';
 
 import NotificationsItem from './NotificationsItem';
-import {fetchNotifications, markAsARead} from '../actions/notificationActionCreators';
-import { getUnreadNotifications } from '../selectors/notificationSelector';
+import {fetchNotifications, markAsARead, setNotificationFilter} from '../actions/notificationActionCreators';
+import { getUnreadNotifications, getUnreadNotificationsByType } from '../selectors/notificationSelector';
 
 class Notifications extends React.PureComponent {
     constructor(props) {
@@ -17,11 +17,14 @@ class Notifications extends React.PureComponent {
     }
 
     render() {
-        const { displayDrawer,
+        const {
+            displayDrawer,
             listNotifications,
             handleDisplayDrawer,
             handleHideDrawer,
-            markNotificationAsRead } = this.props;
+            markNotificationAsRead,
+            setNotificationFilter
+        } = this.props;
 
         return (
             <React.Fragment>
@@ -36,7 +39,14 @@ class Notifications extends React.PureComponent {
                             aria-label={"Close"}
                             onClick={handleHideDrawer}
                         >x</button>
-                        {listNotifications.length === 0 ? <p>No new notification for now</p> : <p>Here is the list of notifications</p>}
+                        {
+                            listNotifications.length === 0 ? <p>No new notification for now</p> :
+                            <div>
+                                <p>Here is the list of notifications</p>
+                                <button onClick={() => setNotificationFilter('URGENT')}>!!</button>
+                                <button onClick={() => setNotificationFilter('DEFAULT')}>?</button>
+                            </div>
+                        }
                         <ul className={css(styles.ulMobile)}>
                             {listNotifications.valueSeq().map((notification) => {
                                 return <NotificationsItem
@@ -65,7 +75,8 @@ Notifications.propTypes = {
     handleDisplayDrawer: PropTypes.func,
     handleHideDrawer: PropTypes.func,
     markNotificationAsRead: PropTypes.func,
-    fetchNotifications: PropTypes.func
+    fetchNotifications: PropTypes.func,
+    setNotificationFilter: PropTypes.func
 };
 
 Notifications.defaultProps = {
@@ -74,7 +85,8 @@ Notifications.defaultProps = {
     handleDisplayDrawer: () => {},
     handleHideDrawer: () => {},
     markNotificationAsRead: () => {},
-    fetchNotifications: () => {}
+    fetchNotifications: () => {},
+    setNotificationFilter: () => {}
 };
 
 const opacity = {
@@ -153,14 +165,15 @@ const styles = StyleSheet.create({
 
 export const mapStateToProps = (state) => {
     return {
-        listNotifications: getUnreadNotifications(state)
+        listNotifications: getUnreadNotificationsByType(state)
     };
 };
 
 export const mapDispatchToProps = (dispatch) => {
     return {
         fetchNotifications: () => dispatch(fetchNotifications()),
-        markNotificationAsRead: (index) => dispatch(markAsARead(index))
+        markNotificationAsRead: (index) => dispatch(markAsARead(index)),
+        setNotificationFilter: (filter) => dispatch(setNotificationFilter(filter))
     };
 };
 
