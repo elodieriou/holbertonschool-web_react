@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import NotificationsItem from './NotificationsItem';
 import {fetchNotifications, markAsARead} from '../actions/notificationActionCreators';
 import { getUnreadNotifications } from '../selectors/notificationSelector';
-import { Map } from 'immutable';
+
 class Notifications extends React.PureComponent {
     constructor(props) {
         super(props);

@@ -1,15 +1,9 @@
-import React, {useState} from 'react';
-import { StyleSheet, css } from "aphrodite";
+import React, { useState } from 'react';
+import { StyleSheet, css } from 'aphrodite';
 import PropTypes from 'prop-types';
 
 
-const CourseListRow = ({isHeader, textFirstCell, textSecondCell}) => {
-    const [isChecked, setIsChecked] = useState(false);
-
-    const handleCheckbox = () => {
-        setIsChecked(!isChecked);
-    }
-
+const CourseListRow = ({ id, isHeader, textFirstCell, textSecondCell, isChecked, onChangeRow }) => {
     const rowStyles = {
         backgroundColor: '#f5f5f5ab',
     }
@@ -27,7 +21,7 @@ const CourseListRow = ({isHeader, textFirstCell, textSecondCell}) => {
     ); else tr = (
         <React.Fragment>
             <td className={css( isChecked ? [styles.rowChecked, styles.bodyRow] : styles.bodyRow)}>
-                <input type={'checkbox'} onClick={handleCheckbox}></input>
+                <input type={'checkbox'} onClick={() => onChangeRow(id, !isChecked)}></input>
                 {textFirstCell}
             </td>
             <td className={css(isChecked ? [styles.rowChecked, styles.bodyRow] : styles.bodyRow)}>{textSecondCell}</td>
@@ -42,12 +36,19 @@ const CourseListRow = ({isHeader, textFirstCell, textSecondCell}) => {
 CourseListRow.propTypes = {
     isHeader: PropTypes.bool,
     textFirstCell: PropTypes.string.isRequired,
-    textSecondCell: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    textSecondCell: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
+    isChecked: PropTypes.bool,
+    onChangeRow: PropTypes.func
 };
 
 CourseListRow.defaultProps = {
     isHeader: false,
     textSecondCell: null,
+    isChecked: false,
+    onChangeRow: () => {}
 };
 
 const styles = StyleSheet.create({
