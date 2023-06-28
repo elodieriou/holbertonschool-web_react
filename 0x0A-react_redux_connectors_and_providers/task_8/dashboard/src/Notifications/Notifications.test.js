@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { Notifications } from './Notifications';
 import { getLatestNotification } from '../utils/utils';
 import { fromJS } from 'immutable';
+import {fetchNotifications} from "../actions/notificationActionCreators";
 
 describe('Notifications component tests', () => {
 
@@ -138,7 +139,12 @@ describe('Notifications component tests', () => {
         });
     });
 
-    describe('When clicking on "Your notifications" and "Close button"', () => {
+    describe('When clicking on "Your notifications", "Close button" and "Filter button" ', () => {
+
+        afterEach(() => {
+            jest.restoreAllMocks();
+        });
+
         const listNotifications = [
             {guid: 1, type: "default", value: "New course available"},
             {guid: 2, type: "urgent", value: "New resume available"},
@@ -155,8 +161,34 @@ describe('Notifications component tests', () => {
         it('clicking on "Close button", handleHideDrawer is called', () => {
             const handleHideDrawerSpy = jest.fn()
             const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={fromJS(listNotifications)} handleHideDrawer={handleHideDrawerSpy}/>);
-            wrapper.find('button').simulate('click');
+            wrapper.find('button.buttonMobile_xecz90').simulate('click');
             expect(handleHideDrawerSpy).toHaveBeenCalled();
+        });
+
+        it('clicking on button !! call setNotificationFilter with URGENT', () => {
+            const setNotificationFilter = jest.fn()
+            const wrapper = shallow(<Notifications
+                displayDrawer={true}
+                listNotifications={fromJS(listNotifications)}
+                fetchNotifications={fetchNotifications}
+                setNotificationFilter={setNotificationFilter}
+            />);
+            wrapper.find('button#urgent').simulate('click');
+            expect(setNotificationFilter).toHaveBeenCalledTimes(1);
+            expect(setNotificationFilter).toHaveBeenCalledWith('URGENT');
+        });
+
+        it('clicking on button ? filter call setNotificationFilter with DEFAULT', () => {
+            const setNotificationFilter = jest.fn()
+            const wrapper = shallow(<Notifications
+                displayDrawer={true}
+                listNotifications={fromJS(listNotifications)}
+                fetchNotifications={fetchNotifications}
+                setNotificationFilter={setNotificationFilter}
+            />);
+            wrapper.find('button#default').simulate('click');
+            expect(setNotificationFilter).toHaveBeenCalledTimes(1);
+            expect(setNotificationFilter).toHaveBeenCalledWith('DEFAULT');
         });
     });
 

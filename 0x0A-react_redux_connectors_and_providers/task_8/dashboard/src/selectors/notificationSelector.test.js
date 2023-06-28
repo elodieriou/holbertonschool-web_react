@@ -1,7 +1,7 @@
 import {
     filterTypeSelected,
     getNotifications,
-    getUnreadNotifications
+    getUnreadNotificationsByType
 } from './notificationSelector';
 import { notificationReducer } from '../reducers/notificationReducer';
 import { FETCH_NOTIFICATIONS_SUCCESS, MARK_AS_READ } from '../actions/notificationActionTypes';
@@ -42,9 +42,9 @@ describe('notificationSelectors tests', () => {
         expect(selector.toJS()).toEqual(reducer.toJS().notifications);
     });
 
-    it('check that getUnreadNotifications returns a list of all unread notifications', () => {
+    it('check that getUnreadNotificationsByType returns a list of all unread notifications', () => {
         const initialState = {
-            notifications: fromJS({})
+            notifications: fromJS({ filter: 'URGENT' })
         };
 
         const action = {
@@ -90,8 +90,8 @@ describe('notificationSelectors tests', () => {
                 }
             ]
         };
-        initialState.notifications = notificationReducer(undefined, action);
-        const selector = getUnreadNotifications(initialState);
+        initialState.notifications = notificationReducer(initialState.notifications, action);
+        const selector = getUnreadNotificationsByType(initialState);
         expect(selector.count()).toBe(1);
         expect(selector.toJS()[0]['guid']).toBe('cec84b7a-7be4-4af0-b833-f1485433f66e');
     });

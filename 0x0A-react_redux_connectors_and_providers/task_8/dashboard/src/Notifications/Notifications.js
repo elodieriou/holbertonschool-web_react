@@ -43,8 +43,8 @@ class Notifications extends React.PureComponent {
                             listNotifications.length === 0 ? <p>No new notification for now</p> :
                             <div>
                                 <p>Here is the list of notifications</p>
-                                <button onClick={() => setNotificationFilter('URGENT')}>!!</button>
-                                <button onClick={() => setNotificationFilter('DEFAULT')}>?</button>
+                                <button id={"urgent"} onClick={() => setNotificationFilter('URGENT')}>!!</button>
+                                <button id={"default"} onClick={() => setNotificationFilter('DEFAULT')}>?</button>
                             </div>
                         }
                         <ul className={css(styles.ulMobile)}>
