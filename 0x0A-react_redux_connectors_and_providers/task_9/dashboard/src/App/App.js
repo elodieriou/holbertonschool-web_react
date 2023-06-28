@@ -3,7 +3,7 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Notifications from '../Notifications/Notifications';
+import NotificationsContainer from '../Notifications/NotificationsContainer';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
 import CourseList from '../CourseList/CourseList';
@@ -43,10 +43,10 @@ class App extends React.Component {
         const { isLoggedIn, displayDrawer, displayNotificationDrawer, hideNotificationDrawer, login } = this.props;
         return (
             <React.Fragment>
-                <Notifications displayDrawer={displayDrawer}
-                               handleDisplayDrawer={displayNotificationDrawer}
-                               handleHideDrawer={hideNotificationDrawer}
-                               markNotificationAsRead={this.markNotificationAsRead}
+                <NotificationsContainer
+                    displayDrawer={displayDrawer}
+                    handleDisplayDrawer={displayNotificationDrawer}
+                    handleHideDrawer={hideNotificationDrawer}
                 />
                 <Header />
                 <div className={css(styles.body)}>
